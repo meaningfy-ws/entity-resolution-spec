@@ -1,0 +1,117 @@
+id: https://data.europa.eu/ers/schema/ers
+name: ersSchema
+description: ERS domain layer models for entity resolution decisions and audit
+version: 0.1.0
+imports:
+  - linkml:types
+  - ./ere-service-schema-v0.1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  ers: https://data.europa.eu/ers/schema/ers/
+  ere: https://data.europa.eu/ers/schema/ere/
+default_prefix: ers
+default_range: string
+
+enums:
+
+  EntityType:
+    description: Types of entities that can be resolved
+    permissible_values:
+      ORGANISATION:
+        description: An organization entity
+      PROCEDURE:
+        description: A procurement procedure entity
+
+  DecisionStatus:
+    description: Status of a resolution decision in the curation workflow
+    permissible_values:
+      AUTOMATIC_CONFIDENT:
+        description: Resolution confidence exceeds threshold; no manual review required
+      PENDING_MANUAL_REVIEW:
+        description: Resolution confidence below threshold; awaiting curator action
+      MANUALLY_REVIEWED:
+        description: Curator has taken an action
+
+  DecisionAction:
+    description: Action taken on a decision by the curator
+    permissible_values:
+      ACCEPT_TOP:
+        description: Curator accepted the top candidate
+      ACCEPT_ALTERNATIVE:
+        description: Curator selected an alternative candidate
+      REJECT_ALL:
+        description: Curator rejected all candidates
+
+  AuditAction:
+    description: Actions recorded in the audit log
+    permissible_values:
+      ACCEPT:
+        description: Accept action performed
+      REJECT:
+        description: Reject action performed
+      ASSIGN:
+        description: Assign to alternative cluster action performed
+
+
+classes:
+
+  Decision:
+    description: |
+      Aggregate root representing a resolution decision requiring curation.
+      Captures the state and outcome of entity mention resolution.
+    attributes:
+      id:
+        description: Unique identifier for the decision
+        required: true
+      aboutEntityMention:
+        range: EntityMentionIdentifier
+        description: Reference to the entity mention being resolved
+        required: true
+      status:
+        range: DecisionStatus
+        description: Current status in the curation workflow
+        required: true
+      action:
+        range: DecisionAction
+        description: Action taken by curator
+      acceptedCandidate:
+        range: ClusterReference
+        description: The cluster reference accepted for this entity mention
+      candidates:
+        range: ClusterReference
+        multivalued: true
+        description: All cluster references proposed by ERE, ordered by confidence
+        required: true
+      createdAt:
+        range: datetime
+        description: Timestamp when the decision was created
+        required: true
+      updatedAt:
+        range: datetime
+        description: Timestamp when the decision was last updated
+
+  AuditLog:
+    description: Audit trail entry for curation actions
+    attributes:
+      id:
+        description: Unique identifier for the audit entry
+        required: true
+      actor:
+        description: User identifier who performed the action
+        required: true
+      action:
+        range: AuditAction
+        description: The action performed
+        required: true
+      instanceType:
+        description: Type of entity being modified (e.g., Decision)
+        required: true
+      instanceId:
+        description: Identifier of the modified entity
+        required: true
+      changes:
+        description: JSON representation of action-specific context
+      createdAt:
+        range: datetime
+        description: Timestamp when the action was performed
+        required: true
