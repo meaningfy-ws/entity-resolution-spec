@@ -13,6 +13,7 @@ LINKML_MODEL_VERSION=0.1.0
 PYTHON_MODEL_PATH=src/ere/models/core.py
 
 SCHEMAS_DIR=resources/schemas
+SCRIPTS_DIR=resources/scripts
 
 LINKML_MODEL_PATH=$(SCHEMAS_DIR)/$(LINKML_MODEL_NAME)-v$(LINKML_MODEL_VERSION).yaml
 JSON_SCHEMA_PATH=$(SCHEMAS_DIR)/$(LINKML_MODEL_NAME)-v$(LINKML_MODEL_VERSION).json
@@ -45,7 +46,8 @@ generate-doc: $(MODEL_DOCS_README)
 $(PYTHON_MODEL_PATH): $(LINKML_MODEL_PATH)
 	@ echo "Generating Python service model..."
 	@ mkdir -p $(dir $(PYTHON_MODEL_PATH))
-	@ poetry run linkml generate pydantic $(LINKML_MODEL_PATH) > $(PYTHON_MODEL_PATH)
+	@ poetry run python $(SCRIPTS_DIR)/generate_models.py
+	@ poetry run ruff check --fix
 
 $(JSON_SCHEMA_PATH): $(LINKML_MODEL_PATH)
 	@ echo "Generating JSON Schema for the ERE service..."
