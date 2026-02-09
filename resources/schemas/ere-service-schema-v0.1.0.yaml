@@ -1,5 +1,5 @@
 id: https://data.europa.eu/ers/schema/ere
-name: ereServiceSchema
+name: coreSchema
 description: A LinkML schema for the ERS/ERE Service
 version: 0.1.0
 imports:
@@ -233,6 +233,9 @@ classes:
         description: |
           A code string representing the entity mention details (eg, RDF or XML description).
         required: true
+      parsedRepresentation:
+        description: |
+          JSON representation of the parsed entity data.
 
 
   EntityMentionIdentifier:
