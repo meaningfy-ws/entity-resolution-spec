@@ -1,6 +1,6 @@
 
 
-# Slot: excludedClusterIds 
+# Slot: excluded_cluster_ids 
 
 
 _When this is present, the resolution must not bin the entity mention into any of the_
@@ -27,8 +27,8 @@ __
 
 
 
-URI: [ere:excludedClusterIds](https://data.europa.eu/ers/schema/ere/excludedClusterIds)
-Alias: excludedClusterIds
+URI: [ere:excluded_cluster_ids](https://data.europa.eu/ers/schema/ere/excluded_cluster_ids)
+Alias: excluded_cluster_ids
 
 <!-- no inheritance hierarchy -->
 
@@ -75,8 +75,8 @@ Alias: excludedClusterIds
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:excludedClusterIds |
-| native | ere:excludedClusterIds |
+| self | ere:excluded_cluster_ids |
+| native | ere:excluded_cluster_ids |
 
 
 
@@ -85,7 +85,7 @@ Alias: excludedClusterIds
 
 <details>
 ```yaml
-name: excludedClusterIds
+name: excluded_cluster_ids
 description: "When this is present, the resolution must not bin the entity mention\
   \ into any of the\nlisted clusters. This can be used to reject a previous resolution\
   \ proposed by the ERE.\n\nThe exact reaction to this is implementation dependent.\
@@ -95,7 +95,7 @@ description: "When this is present, the resolution must not bin the entity menti
   \ What does it happen if an exclusion was made by mistake?\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: excludedClusterIds
+alias: excluded_cluster_ids
 owner: EntityMentionResolutionRequest
 domain_of:
 - EntityMentionResolutionRequest

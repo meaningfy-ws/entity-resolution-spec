@@ -49,18 +49,18 @@ URI: [ere:EntityMentionResolutionResponse](https://data.europa.eu/ers/schema/ere
     
 
         
-      EntityMentionResolutionResponse : entityMentionId
+      EntityMentionResolutionResponse : entity_mention_id
         
           
     
         
         
-        EntityMentionResolutionResponse --> "1" EntityMentionIdentifier : entityMentionId
+        EntityMentionResolutionResponse --> "1" EntityMentionIdentifier : entity_mention_id
         click EntityMentionIdentifier href "../EntityMentionIdentifier/"
     
 
         
-      EntityMentionResolutionResponse : ereRequestId
+      EntityMentionResolutionResponse : ere_request_id
         
       EntityMentionResolutionResponse : timestamp
         
@@ -84,10 +84,10 @@ URI: [ere:EntityMentionResolutionResponse](https://data.europa.eu/ers/schema/ere
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [entityMentionId](entityMentionId.md) | 1 <br/> [EntityMentionIdentifier](EntityMentionIdentifier.md) | The identifier of the entity mention that has been resolved | direct |
+| [entity_mention_id](entity_mention_id.md) | 1 <br/> [EntityMentionIdentifier](EntityMentionIdentifier.md) | The identifier of the entity mention that has been resolved | direct |
 | [candidates](candidates.md) | 1..* <br/> [ClusterReference](ClusterReference.md) | The set of cluster reference/score pairs representing the candidate clusters | direct |
 | [type](type.md) | 1 <br/> [String](String.md) | The type of the request or result | [EREMessage](EREMessage.md) |
-| [ereRequestId](ereRequestId.md) | 1 <br/> [String](String.md) | A string representing the unique ID of an ERE request, or the ID of the reque... | [EREMessage](EREMessage.md) |
+| [ere_request_id](ere_request_id.md) | 1 <br/> [String](String.md) | A string representing the unique ID of an ERE request, or the ID of the reque... | [EREMessage](EREMessage.md) |
 | [timestamp](timestamp.md) | 0..1 <br/> [Datetime](Datetime.md) | The time when the message was created | [EREMessage](EREMessage.md) |
 
 
@@ -106,23 +106,23 @@ URI: [ere:EntityMentionResolutionResponse](https://data.europa.eu/ers/schema/ere
 | --- |
 | {
   "type": "EntityMentionResolutionResponse",
-  "entityMentionId": {
-    "requestId": "324fs3r345vx",
-    "sourceId": "TEDSWS",
-    "entityType": "http://www.w3.org/ns/org#Organization"
+  "entity_mention_id": {
+    "request_id": "324fs3r345vx",
+    "source_id": "TEDSWS",
+    "entity_type": "http://www.w3.org/ns/org#Organization"
   },
   "candidates": [
     { 
-      "clusterId": "324fs3r345vx-aa32wa",
-      "confidenceScore": 0.91
+      "cluster_id": "324fs3r345vx-aa32wa",
+      "confidence_score": 0.91
     },
     { 
-      "clusterId": "324fs3r345vx-bb45we",
-      "confidenceScore": 0.65
+      "cluster_id": "324fs3r345vx-bb45we",
+      "confidence_score": 0.65
     }
   ],
   "timestamp": "2026-01-14T12:34:59Z",
-  "ereRequestId": "324fs3r345vx:01"
+  "ere_request_id": "324fs3r345vx:01"
 }
     
  |
@@ -170,20 +170,20 @@ description: "An entity resolution response returned by the ERE.\n\nThis is basi
   \ with multiple subjects), in which case \nwe might need to return multiple `EntityMentionResolutionResponse`\
   \ messages, each with additional \nproperties such as `entityIndex` and `totalEntities`.\n"
 examples:
-- value: "{\n  \"type\": \"EntityMentionResolutionResponse\",\n  \"entityMentionId\"\
-    : {\n    \"requestId\": \"324fs3r345vx\",\n    \"sourceId\": \"TEDSWS\",\n   \
-    \ \"entityType\": \"http://www.w3.org/ns/org#Organization\"\n  },\n  \"candidates\"\
-    : [\n    { \n      \"clusterId\": \"324fs3r345vx-aa32wa\",\n      \"confidenceScore\"\
-    : 0.91\n    },\n    { \n      \"clusterId\": \"324fs3r345vx-bb45we\",\n      \"\
-    confidenceScore\": 0.65\n    }\n  ],\n  \"timestamp\": \"2026-01-14T12:34:59Z\"\
-    ,\n  \"ereRequestId\": \"324fs3r345vx:01\"\n}\n    \n"
+- value: "{\n  \"type\": \"EntityMentionResolutionResponse\",\n  \"entity_mention_id\"\
+    : {\n    \"request_id\": \"324fs3r345vx\",\n    \"source_id\": \"TEDSWS\",\n \
+    \   \"entity_type\": \"http://www.w3.org/ns/org#Organization\"\n  },\n  \"candidates\"\
+    : [\n    { \n      \"cluster_id\": \"324fs3r345vx-aa32wa\",\n      \"confidence_score\"\
+    : 0.91\n    },\n    { \n      \"cluster_id\": \"324fs3r345vx-bb45we\",\n     \
+    \ \"confidence_score\": 0.65\n    }\n  ],\n  \"timestamp\": \"2026-01-14T12:34:59Z\"\
+    ,\n  \"ere_request_id\": \"324fs3r345vx:01\"\n}\n    \n"
 from_schema: https://data.europa.eu/ers/schema/ere
 is_a: EREResponse
 attributes:
-  entityMentionId:
-    name: entityMentionId
+  entity_mention_id:
+    name: entity_mention_id
     description: "The identifier of the entity mention that has been resolved.\n\n\
-      This isn't strictly needed, since the `ereRequestId` already links the response\
+      This isn't strictly needed, since the `ere_request_id` already links the response\
       \ to \nthe request's entity mention. Yet, it's reported for convenience.\n"
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
@@ -204,6 +204,7 @@ attributes:
     rank: 1000
     domain_of:
     - EntityMentionResolutionResponse
+    - Decision
     range: ClusterReference
     required: true
     multivalued: true
@@ -223,24 +224,24 @@ description: "An entity resolution response returned by the ERE.\n\nThis is basi
   \ with multiple subjects), in which case \nwe might need to return multiple `EntityMentionResolutionResponse`\
   \ messages, each with additional \nproperties such as `entityIndex` and `totalEntities`.\n"
 examples:
-- value: "{\n  \"type\": \"EntityMentionResolutionResponse\",\n  \"entityMentionId\"\
-    : {\n    \"requestId\": \"324fs3r345vx\",\n    \"sourceId\": \"TEDSWS\",\n   \
-    \ \"entityType\": \"http://www.w3.org/ns/org#Organization\"\n  },\n  \"candidates\"\
-    : [\n    { \n      \"clusterId\": \"324fs3r345vx-aa32wa\",\n      \"confidenceScore\"\
-    : 0.91\n    },\n    { \n      \"clusterId\": \"324fs3r345vx-bb45we\",\n      \"\
-    confidenceScore\": 0.65\n    }\n  ],\n  \"timestamp\": \"2026-01-14T12:34:59Z\"\
-    ,\n  \"ereRequestId\": \"324fs3r345vx:01\"\n}\n    \n"
+- value: "{\n  \"type\": \"EntityMentionResolutionResponse\",\n  \"entity_mention_id\"\
+    : {\n    \"request_id\": \"324fs3r345vx\",\n    \"source_id\": \"TEDSWS\",\n \
+    \   \"entity_type\": \"http://www.w3.org/ns/org#Organization\"\n  },\n  \"candidates\"\
+    : [\n    { \n      \"cluster_id\": \"324fs3r345vx-aa32wa\",\n      \"confidence_score\"\
+    : 0.91\n    },\n    { \n      \"cluster_id\": \"324fs3r345vx-bb45we\",\n     \
+    \ \"confidence_score\": 0.65\n    }\n  ],\n  \"timestamp\": \"2026-01-14T12:34:59Z\"\
+    ,\n  \"ere_request_id\": \"324fs3r345vx:01\"\n}\n    \n"
 from_schema: https://data.europa.eu/ers/schema/ere
 is_a: EREResponse
 attributes:
-  entityMentionId:
-    name: entityMentionId
+  entity_mention_id:
+    name: entity_mention_id
     description: "The identifier of the entity mention that has been resolved.\n\n\
-      This isn't strictly needed, since the `ereRequestId` already links the response\
+      This isn't strictly needed, since the `ere_request_id` already links the response\
       \ to \nthe request's entity mention. Yet, it's reported for convenience.\n"
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
-    alias: entityMentionId
+    alias: entity_mention_id
     owner: EntityMentionResolutionResponse
     domain_of:
     - EntityMentionResolutionResponse
@@ -261,6 +262,7 @@ attributes:
     owner: EntityMentionResolutionResponse
     domain_of:
     - EntityMentionResolutionResponse
+    - Decision
     range: ClusterReference
     required: true
     multivalued: true
@@ -280,17 +282,17 @@ attributes:
     - EREMessage
     range: string
     required: true
-  ereRequestId:
-    name: ereRequestId
+  ere_request_id:
+    name: ere_request_id
     description: 'A string representing the unique ID of an ERE request, or the ID
       of the request a response is about.
 
-      This **is not** the same as `requestId` + `sourceId`.
+      This **is not** the same as `request_id` + `source_id`.
 
       '
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
-    alias: ereRequestId
+    alias: ere_request_id
     owner: EntityMentionResolutionResponse
     domain_of:
     - EREMessage

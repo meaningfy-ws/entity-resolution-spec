@@ -1,6 +1,6 @@
 
 
-# Slot: sourceId 
+# Slot: source_id 
 
 
 _The ID or URI of the ERS client that originated the request. This identifies an application or a _
@@ -13,8 +13,8 @@ __
 
 
 
-URI: [ere:sourceId](https://data.europa.eu/ers/schema/ere/sourceId)
-Alias: sourceId
+URI: [ere:source_id](https://data.europa.eu/ers/schema/ere/source_id)
+Alias: source_id
 
 <!-- no inheritance hierarchy -->
 
@@ -61,8 +61,8 @@ Alias: sourceId
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:sourceId |
-| native | ere:sourceId |
+| self | ere:source_id |
+| native | ere:source_id |
 
 
 
@@ -71,12 +71,12 @@ Alias: sourceId
 
 <details>
 ```yaml
-name: sourceId
+name: source_id
 description: "The ID or URI of the ERS client that originated the request. This identifies\
   \ an application or a \nperson accessing the ERS system.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: sourceId
+alias: source_id
 owner: EntityMentionIdentifier
 domain_of:
 - EntityMentionIdentifier

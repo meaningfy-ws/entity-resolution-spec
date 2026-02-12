@@ -33,9 +33,9 @@ URI: [ere:ClusterReference](https://data.europa.eu/ers/schema/ere/ClusterReferen
  classDiagram
     class ClusterReference
     click ClusterReference href "../ClusterReference/"
-      ClusterReference : clusterId
+      ClusterReference : cluster_id
         
-      ClusterReference : confidenceScore
+      ClusterReference : confidence_score
         
       
 ```
@@ -50,8 +50,8 @@ URI: [ere:ClusterReference](https://data.europa.eu/ers/schema/ere/ClusterReferen
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [clusterId](clusterId.md) | 1 <br/> [String](String.md) | The identifier of the cluster/canonical entity that is considered equivalent ... | direct |
-| [confidenceScore](confidenceScore.md) | 1 <br/> [Float](Float.md) | A 0-1 value of how confident the ERE is about the equivalence between the sub... | direct |
+| [cluster_id](cluster_id.md) | 1 <br/> [String](String.md) | The identifier of the cluster/canonical entity that is considered equivalent ... | direct |
+| [confidence_score](confidence_score.md) | 1 <br/> [Float](Float.md) | A 0-1 value of how confident the ERE is about the equivalence between the sub... | direct |
 
 
 
@@ -62,6 +62,8 @@ URI: [ere:ClusterReference](https://data.europa.eu/ers/schema/ere/ClusterReferen
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
 | [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | [candidates](candidates.md) | range | [ClusterReference](ClusterReference.md) |
+| [Decision](Decision.md) | [accepted_candidate](accepted_candidate.md) | range | [ClusterReference](ClusterReference.md) |
+| [Decision](Decision.md) | [candidates](candidates.md) | range | [ClusterReference](ClusterReference.md) |
 
 
 
@@ -112,28 +114,28 @@ description: "A reference to a cluster to which an entity is deemed to belong, w
   \ an entity mention and a cluster \nof equivalence.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 attributes:
-  clusterId:
-    name: clusterId
+  cluster_id:
+    name: cluster_id
     description: 'The identifier of the cluster/canonical entity that is considered
       equivalent to the
 
       subject entity mention that an `EntityMentionResolutionResponse` refers to.
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - ClusterReference
     required: true
-  confidenceScore:
-    name: confidenceScore
+  confidence_score:
+    name: confidence_score
     description: 'A 0-1 value of how confident the ERE is about the equivalence between
       the subject entity mention
 
       and the target canonical entity.
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - ClusterReference
@@ -157,33 +159,33 @@ description: "A reference to a cluster to which an entity is deemed to belong, w
   \ an entity mention and a cluster \nof equivalence.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 attributes:
-  clusterId:
-    name: clusterId
+  cluster_id:
+    name: cluster_id
     description: 'The identifier of the cluster/canonical entity that is considered
       equivalent to the
 
       subject entity mention that an `EntityMentionResolutionResponse` refers to.
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
-    alias: clusterId
+    alias: cluster_id
     owner: ClusterReference
     domain_of:
     - ClusterReference
     range: string
     required: true
-  confidenceScore:
-    name: confidenceScore
+  confidence_score:
+    name: confidence_score
     description: 'A 0-1 value of how confident the ERE is about the equivalence between
       the subject entity mention
 
       and the target canonical entity.
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
-    alias: confidenceScore
+    alias: confidence_score
     owner: ClusterReference
     domain_of:
     - ClusterReference

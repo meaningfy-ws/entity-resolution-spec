@@ -1,13 +1,13 @@
 
 
-# Slot: entityMentionId 
+# Slot: entity_mention_id 
 
 
 _The identifier of the entity mention that has been resolved._
 
 __
 
-_This isn't strictly needed, since the `ereRequestId` already links the response to _
+_This isn't strictly needed, since the `ere_request_id` already links the response to _
 
 _the request's entity mention. Yet, it's reported for convenience._
 
@@ -17,8 +17,8 @@ __
 
 
 
-URI: [ere:entityMentionId](https://data.europa.eu/ers/schema/ere/entityMentionId)
-Alias: entityMentionId
+URI: [ere:entity_mention_id](https://data.europa.eu/ers/schema/ere/entity_mention_id)
+Alias: entity_mention_id
 
 <!-- no inheritance hierarchy -->
 
@@ -65,8 +65,8 @@ Alias: entityMentionId
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:entityMentionId |
-| native | ere:entityMentionId |
+| self | ere:entity_mention_id |
+| native | ere:entity_mention_id |
 
 
 
@@ -75,13 +75,13 @@ Alias: entityMentionId
 
 <details>
 ```yaml
-name: entityMentionId
+name: entity_mention_id
 description: "The identifier of the entity mention that has been resolved.\n\nThis\
-  \ isn't strictly needed, since the `ereRequestId` already links the response to\
+  \ isn't strictly needed, since the `ere_request_id` already links the response to\
   \ \nthe request's entity mention. Yet, it's reported for convenience.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: entityMentionId
+alias: entity_mention_id
 owner: EntityMentionResolutionResponse
 domain_of:
 - EntityMentionResolutionResponse

@@ -1,19 +1,23 @@
 
 
-# Class: ERERequest 
+# Class: FullRebuildResponse 
 
 
-_Root class to represent all the requests sent to the ERE._
+_A response to a `FullRebuildRequest`, confirming that the rebuild process has started._
+
+__
+
+_As for all the requests, this carries the `ere_request_id`, which matches the full rebuild _
+
+_request being acknowledged._
 
 __
 
 
 
 
-* __NOTE__: this is an abstract class and should not be instantiated directly
 
-
-URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
+URI: [ere:FullRebuildResponse](https://data.europa.eu/ers/schema/ere/FullRebuildResponse)
 
 
 
@@ -21,23 +25,16 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 ```mermaid
  classDiagram
-    class ERERequest
-    click ERERequest href "../ERERequest/"
-      EREMessage <|-- ERERequest
-        click EREMessage href "../EREMessage/"
+    class FullRebuildResponse
+    click FullRebuildResponse href "../FullRebuildResponse/"
+      EREResponse <|-- FullRebuildResponse
+        click EREResponse href "../EREResponse/"
       
-
-      ERERequest <|-- EntityMentionResolutionRequest
-        click EntityMentionResolutionRequest href "../EntityMentionResolutionRequest/"
-      ERERequest <|-- FullRebuildRequest
-        click FullRebuildRequest href "../FullRebuildRequest/"
-      
-
-      ERERequest : ere_request_id
+      FullRebuildResponse : ere_request_id
         
-      ERERequest : timestamp
+      FullRebuildResponse : timestamp
         
-      ERERequest : type
+      FullRebuildResponse : type
         
       
 ```
@@ -48,9 +45,8 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 ## Inheritance
 * [EREMessage](EREMessage.md)
-    * **ERERequest**
-        * [EntityMentionResolutionRequest](EntityMentionResolutionRequest.md)
-        * [FullRebuildRequest](FullRebuildRequest.md)
+    * [EREResponse](EREResponse.md)
+        * **FullRebuildResponse**
 
 
 
@@ -90,8 +86,8 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:ERERequest |
-| native | ere:ERERequest |
+| self | ere:FullRebuildResponse |
+| native | ere:FullRebuildResponse |
 
 
 
@@ -106,13 +102,12 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 <details>
 ```yaml
-name: ERERequest
-description: 'Root class to represent all the requests sent to the ERE.
-
-  '
+name: FullRebuildResponse
+description: "A response to a `FullRebuildRequest`, confirming that the rebuild process\
+  \ has started.\n\nAs for all the requests, this carries the `ere_request_id`, which\
+  \ matches the full rebuild \nrequest being acknowledged.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
-is_a: EREMessage
-abstract: true
+is_a: EREResponse
 
 ```
 </details>
@@ -121,13 +116,12 @@ abstract: true
 
 <details>
 ```yaml
-name: ERERequest
-description: 'Root class to represent all the requests sent to the ERE.
-
-  '
+name: FullRebuildResponse
+description: "A response to a `FullRebuildRequest`, confirming that the rebuild process\
+  \ has started.\n\nAs for all the requests, this carries the `ere_request_id`, which\
+  \ matches the full rebuild \nrequest being acknowledged.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
-is_a: EREMessage
-abstract: true
+is_a: EREResponse
 attributes:
   type:
     name: type
@@ -140,7 +134,7 @@ attributes:
     rank: 1000
     designates_type: true
     alias: type
-    owner: ERERequest
+    owner: FullRebuildResponse
     domain_of:
     - EREMessage
     range: string
@@ -156,7 +150,7 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
     alias: ere_request_id
-    owner: ERERequest
+    owner: FullRebuildResponse
     domain_of:
     - EREMessage
     range: string
@@ -169,7 +163,7 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
     alias: timestamp
-    owner: ERERequest
+    owner: FullRebuildResponse
     domain_of:
     - EREMessage
     range: datetime

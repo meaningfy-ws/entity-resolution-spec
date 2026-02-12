@@ -12,7 +12,10 @@ Name: ereServiceSchema
 
 | Class | Description |
 | --- | --- |
+| [AuditLog](AuditLog.md) | Audit trail entry for curation actions |
+| [CanonicalEntity](CanonicalEntity.md) | A logical identity construct providing a stable identity anchor |
 | [ClusterReference](ClusterReference.md) | A reference to a cluster to which an entity is deemed to belong, with an asso... |
+| [Decision](Decision.md) | Aggregate root representing a resolution decision requiring curation |
 | [EntityMention](EntityMention.md) | An entity mention is a representation of a real-world entity, as provided by ... |
 | [EntityMentionIdentifier](EntityMentionIdentifier.md) | A container that groups the attributes needed to identify an entity mention i... |
 | [EREMessage](EREMessage.md) | Root abstraction to represent attributes common to both requests and results |
@@ -30,31 +33,48 @@ Name: ereServiceSchema
 
 | Slot | Description |
 | --- | --- |
+| [about_entity_mention](about_entity_mention.md) | Reference to the entity mention being resolved |
+| [accepted_candidate](accepted_candidate.md) | The cluster reference accepted for this entity mention |
+| [action](action.md) | Action taken by curator |
+| [actor](actor.md) | User identifier who performed the action |
 | [candidates](candidates.md) | The set of cluster reference/score pairs representing the candidate clusters |
-| [clusterId](clusterId.md) | The identifier of the cluster/canonical entity that is considered equivalent ... |
-| [confidenceScore](confidenceScore.md) | A 0-1 value of how confident the ERE is about the equivalence between the sub... |
+| [changes](changes.md) | JSON representation of action-specific context |
+| [cluster_id](cluster_id.md) | The identifier of the cluster/canonical entity that is considered equivalent ... |
+| [confidence_score](confidence_score.md) | A 0-1 value of how confident the ERE is about the equivalence between the sub... |
 | [content](content.md) | A code string representing the entity mention details (eg, RDF or XML descrip... |
-| [contentType](contentType.md) | A string about the MIME format of `content` (e |
-| [entityMention](entityMention.md) | The data about the entity to be resolved |
-| [entityMentionId](entityMentionId.md) | The identifier of the entity mention that has been resolved |
-| [entityType](entityType.md) | A string representing the entity type (based on CET) |
-| [ereRequestId](ereRequestId.md) | A string representing the unique ID of an ERE request, or the ID of the reque... |
-| [errorDetail](errorDetail.md) | A human readable detailed message about the error that occurred |
-| [errorTitle](errorTitle.md) | A human readable brief message about the error that occurred |
-| [errorTrace](errorTrace.md) | A string representing a (stack) trace of the error that occurred |
-| [errorType](errorType.md) | A string representing the error type, eg, the FQN of the raised exception |
-| [excludedClusterIds](excludedClusterIds.md) | When this is present, the resolution must not bin the entity mention into any... |
-| [identifier](identifier.md) | The identifier (with the ERS-derived components) of the entity mention |
-| [requestId](requestId.md) | A string representing the unique ID of the request made to the ERS system |
-| [sourceId](sourceId.md) | The ID or URI of the ERS client that originated the request |
+| [content_type](content_type.md) | A string about the MIME format of `content` (e |
+| [created_at](created_at.md) | Timestamp when the decision was created |
+| [entity_mention](entity_mention.md) | The data about the entity to be resolved |
+| [entity_mention_id](entity_mention_id.md) | The identifier of the entity mention that has been resolved |
+| [entity_type](entity_type.md) | A string representing the entity type (based on CET) |
+| [equivalent_to](equivalent_to.md) | Entity mentions that have been resolved to this canonical entity |
+| [ere_request_id](ere_request_id.md) | A string representing the unique ID of an ERE request, or the ID of the reque... |
+| [error_detail](error_detail.md) | A human readable detailed message about the error that occurred |
+| [error_title](error_title.md) | A human readable brief message about the error that occurred |
+| [error_trace](error_trace.md) | A string representing a (stack) trace of the error that occurred |
+| [error_type](error_type.md) | A string representing the error type, eg, the FQN of the raised exception |
+| [excluded_cluster_ids](excluded_cluster_ids.md) | When this is present, the resolution must not bin the entity mention into any... |
+| [id](id.md) | Unique identifier for the decision |
+| [identifier](identifier.md) | Unique identifier for the canonical entity |
+| [instance_id](instance_id.md) | Identifier of the modified entity |
+| [instance_type](instance_type.md) | Type of entity being modified (e |
+| [parsed_representation](parsed_representation.md) | JSON representation of the parsed entity data |
+| [request_id](request_id.md) | A string representing the unique ID of the request made to the ERS system |
+| [source_id](source_id.md) | The ID or URI of the ERS client that originated the request |
+| [status](status.md) | Current status in the curation workflow |
 | [timestamp](timestamp.md) | The time when the message was created |
 | [type](type.md) | The type of the request or result |
+| [updated_at](updated_at.md) | Timestamp when the decision was last updated |
 
 
 ## Enumerations
 
 | Enumeration | Description |
 | --- | --- |
+| [AuditAction](AuditAction.md) | Actions recorded in the audit log |
+| [DecisionAction](DecisionAction.md) | Action taken on a decision by the curator |
+| [DecisionStatus](DecisionStatus.md) | Status of a resolution decision in the curation workflow |
+| [EntityType](EntityType.md) | Types of entities that can be resolved |
 
 
 ## Types

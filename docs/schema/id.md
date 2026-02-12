@@ -1,11 +1,11 @@
 
 
-# Slot: candidates 
+# Slot: id 
 
 
 
-URI: [ere:candidates](https://data.europa.eu/ers/schema/ere/candidates)
-Alias: candidates
+URI: [ere:id](https://data.europa.eu/ers/schema/ere/id)
+Alias: id
 
 <!-- no inheritance hierarchy -->
 
@@ -18,7 +18,7 @@ Alias: candidates
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Decision](Decision.md) | Aggregate root representing a resolution decision requiring curation |  no  |
-| [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | An entity resolution response returned by the ERE |  no  |
+| [AuditLog](AuditLog.md) | Audit trail entry for curation actions |  no  |
 
 
 
@@ -44,8 +44,8 @@ Alias: candidates
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:candidates |
-| native | ere:candidates |
+| self | ere:id |
+| native | ere:id |
 
 
 
@@ -54,11 +54,11 @@ Alias: candidates
 
 <details>
 ```yaml
-name: candidates
-alias: candidates
+name: id
+alias: id
 domain_of:
-- EntityMentionResolutionResponse
 - Decision
+- AuditLog
 range: string
 
 ```

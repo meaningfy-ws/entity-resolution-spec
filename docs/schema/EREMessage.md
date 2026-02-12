@@ -30,7 +30,7 @@ URI: [ere:EREMessage](https://data.europa.eu/ers/schema/ere/EREMessage)
       EREMessage <|-- EREResponse
         click EREResponse href "../EREResponse/"
       
-      EREMessage : ereRequestId
+      EREMessage : ere_request_id
         
       EREMessage : timestamp
         
@@ -55,7 +55,7 @@ URI: [ere:EREMessage](https://data.europa.eu/ers/schema/ere/EREMessage)
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [type](type.md) | 1 <br/> [String](String.md) | The type of the request or result | direct |
-| [ereRequestId](ereRequestId.md) | 1 <br/> [String](String.md) | A string representing the unique ID of an ERE request, or the ID of the reque... | direct |
+| [ere_request_id](ere_request_id.md) | 1 <br/> [String](String.md) | A string representing the unique ID of an ERE request, or the ID of the reque... | direct |
 | [timestamp](timestamp.md) | 0..1 <br/> [Datetime](Datetime.md) | The time when the message was created | direct |
 
 
@@ -125,12 +125,12 @@ attributes:
     domain_of:
     - EREMessage
     required: true
-  ereRequestId:
-    name: ereRequestId
+  ere_request_id:
+    name: ere_request_id
     description: 'A string representing the unique ID of an ERE request, or the ID
       of the request a response is about.
 
-      This **is not** the same as `requestId` + `sourceId`.
+      This **is not** the same as `request_id` + `source_id`.
 
       '
     from_schema: https://data.europa.eu/ers/schema/ere
@@ -182,17 +182,17 @@ attributes:
     - EREMessage
     range: string
     required: true
-  ereRequestId:
-    name: ereRequestId
+  ere_request_id:
+    name: ere_request_id
     description: 'A string representing the unique ID of an ERE request, or the ID
       of the request a response is about.
 
-      This **is not** the same as `requestId` + `sourceId`.
+      This **is not** the same as `request_id` + `source_id`.
 
       '
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
-    alias: ereRequestId
+    alias: ere_request_id
     owner: EREMessage
     domain_of:
     - EREMessage

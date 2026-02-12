@@ -1,11 +1,11 @@
 
 
-# Slot: clusterId 
+# Slot: confidence_score 
 
 
-_The identifier of the cluster/canonical entity that is considered equivalent to the_
+_A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention_
 
-_subject entity mention that an `EntityMentionResolutionResponse` refers to._
+_and the target canonical entity._
 
 __
 
@@ -13,8 +13,8 @@ __
 
 
 
-URI: [ere:clusterId](https://data.europa.eu/ers/schema/ere/clusterId)
-Alias: clusterId
+URI: [ere:confidence_score](https://data.europa.eu/ers/schema/ere/confidence_score)
+Alias: confidence_score
 
 <!-- no inheritance hierarchy -->
 
@@ -35,9 +35,13 @@ Alias: clusterId
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Float](Float.md)
 
 * Required: True
+
+* Minimum Value: 0
+
+* Maximum Value: 1
 
 
 
@@ -61,8 +65,8 @@ Alias: clusterId
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:clusterId |
-| native | ere:clusterId |
+| self | ere:confidence_score |
+| native | ere:confidence_score |
 
 
 
@@ -71,21 +75,23 @@ Alias: clusterId
 
 <details>
 ```yaml
-name: clusterId
-description: 'The identifier of the cluster/canonical entity that is considered equivalent
-  to the
+name: confidence_score
+description: 'A 0-1 value of how confident the ERE is about the equivalence between
+  the subject entity mention
 
-  subject entity mention that an `EntityMentionResolutionResponse` refers to.
+  and the target canonical entity.
 
   '
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: clusterId
+alias: confidence_score
 owner: ClusterReference
 domain_of:
 - ClusterReference
-range: string
+range: float
 required: true
+minimum_value: 0.0
+maximum_value: 1.0
 
 ```
 </details>

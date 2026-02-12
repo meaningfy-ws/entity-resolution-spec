@@ -23,7 +23,7 @@ _Moreover:_
 
 _* The ERE must keep track of past `EntityMention` marked as canonical._
 
-_* The ERE must retain requests with `excludedClusterIds` and apply them again when the _
+_* The ERE must retain requests with `excluded_cluster_ids` and apply them again when the _
 
 _  same entity mention is re-sent after the full rebuild. TODO: see notes about these properties,_
 
@@ -48,7 +48,7 @@ URI: [ere:FullRebuildRequest](https://data.europa.eu/ers/schema/ere/FullRebuildR
       ERERequest <|-- FullRebuildRequest
         click ERERequest href "../ERERequest/"
       
-      FullRebuildRequest : ereRequestId
+      FullRebuildRequest : ere_request_id
         
       FullRebuildRequest : timestamp
         
@@ -73,7 +73,7 @@ URI: [ere:FullRebuildRequest](https://data.europa.eu/ers/schema/ere/FullRebuildR
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [type](type.md) | 1 <br/> [String](String.md) | The type of the request or result | [EREMessage](EREMessage.md) |
-| [ereRequestId](ereRequestId.md) | 1 <br/> [String](String.md) | A string representing the unique ID of an ERE request, or the ID of the reque... | [EREMessage](EREMessage.md) |
+| [ere_request_id](ere_request_id.md) | 1 <br/> [String](String.md) | A string representing the unique ID of an ERE request, or the ID of the reque... | [EREMessage](EREMessage.md) |
 | [timestamp](timestamp.md) | 0..1 <br/> [Datetime](Datetime.md) | The time when the message was created | [EREMessage](EREMessage.md) |
 
 
@@ -128,7 +128,7 @@ description: "A request to reset all the resolutions computed so far and possibl
   \ exactly as the first time the resolutions \nwere built. This implies the a client\
   \ like the ERS logs/persists the entities it receives\nto resolve and also saves\
   \ manual overriding of ERE results.\n\nMoreover:\n* The ERE must keep track of past\
-  \ `EntityMention` marked as canonical.\n* The ERE must retain requests with `excludedClusterIds`\
+  \ `EntityMention` marked as canonical.\n* The ERE must retain requests with `excluded_cluster_ids`\
   \ and apply them again when the \n  same entity mention is re-sent after the full\
   \ rebuild. TODO: see notes about these properties,\n  on the possible need of withdrawing\
   \ exclusions.\n"
@@ -150,7 +150,7 @@ description: "A request to reset all the resolutions computed so far and possibl
   \ exactly as the first time the resolutions \nwere built. This implies the a client\
   \ like the ERS logs/persists the entities it receives\nto resolve and also saves\
   \ manual overriding of ERE results.\n\nMoreover:\n* The ERE must keep track of past\
-  \ `EntityMention` marked as canonical.\n* The ERE must retain requests with `excludedClusterIds`\
+  \ `EntityMention` marked as canonical.\n* The ERE must retain requests with `excluded_cluster_ids`\
   \ and apply them again when the \n  same entity mention is re-sent after the full\
   \ rebuild. TODO: see notes about these properties,\n  on the possible need of withdrawing\
   \ exclusions.\n"
@@ -173,17 +173,17 @@ attributes:
     - EREMessage
     range: string
     required: true
-  ereRequestId:
-    name: ereRequestId
+  ere_request_id:
+    name: ere_request_id
     description: 'A string representing the unique ID of an ERE request, or the ID
       of the request a response is about.
 
-      This **is not** the same as `requestId` + `sourceId`.
+      This **is not** the same as `request_id` + `source_id`.
 
       '
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
-    alias: ereRequestId
+    alias: ere_request_id
     owner: FullRebuildRequest
     domain_of:
     - EREMessage

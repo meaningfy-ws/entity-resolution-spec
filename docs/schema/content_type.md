@@ -1,6 +1,6 @@
 
 
-# Slot: contentType 
+# Slot: content_type 
 
 
 _A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)_
@@ -11,8 +11,8 @@ __
 
 
 
-URI: [ere:contentType](https://data.europa.eu/ers/schema/ere/contentType)
-Alias: contentType
+URI: [ere:content_type](https://data.europa.eu/ers/schema/ere/content_type)
+Alias: content_type
 
 <!-- no inheritance hierarchy -->
 
@@ -59,8 +59,8 @@ Alias: contentType
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:contentType |
-| native | ere:contentType |
+| self | ere:content_type |
+| native | ere:content_type |
 
 
 
@@ -69,13 +69,13 @@ Alias: contentType
 
 <details>
 ```yaml
-name: contentType
+name: content_type
 description: 'A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
 
   '
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: contentType
+alias: content_type
 owner: EntityMention
 domain_of:
 - EntityMention

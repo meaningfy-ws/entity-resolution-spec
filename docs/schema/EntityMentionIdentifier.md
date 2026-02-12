@@ -33,11 +33,11 @@ URI: [ere:EntityMentionIdentifier](https://data.europa.eu/ers/schema/ere/EntityM
  classDiagram
     class EntityMentionIdentifier
     click EntityMentionIdentifier href "../EntityMentionIdentifier/"
-      EntityMentionIdentifier : entityType
+      EntityMentionIdentifier : entity_type
         
-      EntityMentionIdentifier : requestId
+      EntityMentionIdentifier : request_id
         
-      EntityMentionIdentifier : sourceId
+      EntityMentionIdentifier : source_id
         
       
 ```
@@ -52,9 +52,9 @@ URI: [ere:EntityMentionIdentifier](https://data.europa.eu/ers/schema/ere/EntityM
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [sourceId](sourceId.md) | 1 <br/> [String](String.md) | The ID or URI of the ERS client that originated the request | direct |
-| [requestId](requestId.md) | 1 <br/> [String](String.md) | A string representing the unique ID of the request made to the ERS system | direct |
-| [entityType](entityType.md) | 1 <br/> [String](String.md) | A string representing the entity type (based on CET) | direct |
+| [source_id](source_id.md) | 1 <br/> [String](String.md) | The ID or URI of the ERS client that originated the request | direct |
+| [request_id](request_id.md) | 1 <br/> [String](String.md) | A string representing the unique ID of the request made to the ERS system | direct |
+| [entity_type](entity_type.md) | 1 <br/> [String](String.md) | A string representing the entity type (based on CET) | direct |
 
 
 
@@ -64,8 +64,10 @@ URI: [ere:EntityMentionIdentifier](https://data.europa.eu/ers/schema/ere/EntityM
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | [entityMentionId](entityMentionId.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
+| [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | [entity_mention_id](entity_mention_id.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
+| [CanonicalEntity](CanonicalEntity.md) | [equivalent_to](equivalent_to.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
 | [EntityMention](EntityMention.md) | [identifier](identifier.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
+| [Decision](Decision.md) | [about_entity_mention](about_entity_mention.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
 
 
 
@@ -118,36 +120,36 @@ description: "A container that groups the attributes needed to identify an entit
   \ entity that is initially the only cluster member.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 attributes:
-  sourceId:
-    name: sourceId
+  source_id:
+    name: source_id
     description: "The ID or URI of the ERS client that originated the request. This\
       \ identifies an application or a \nperson accessing the ERS system.\n"
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - EntityMentionIdentifier
     required: true
-  requestId:
-    name: requestId
+  request_id:
+    name: request_id
     description: "A string representing the unique ID of the request made to the ERS\
       \ system. In general, this is unique\nonly within the scope of the source and\
       \ the entity type, ie, within `sourceId` and `entityType`. \n\nMoreover, this\
       \ is **not** the same as `ereRequestId`, which instead, is internal to the ERE\
       \ and is \nused to match responses to requests.\n"
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - EntityMentionIdentifier
     range: string
     required: true
-  entityType:
-    name: entityType
+  entity_type:
+    name: entity_type
     description: "A string representing the entity type (based on CET). This is typically\
       \ a URI.\n\nNote that this is at this level, and not at `EntityMention`, since,\
       \ as said above, \nit's needed to identify the entity, even when its content\
       \ is not present. For the same\nreason, it's used both for `EREResolutionRequest`\
-      \ and `EREResolutionResponse` messages., \n"
-    from_schema: https://data.europa.eu/ers/schema/ere
+      \ and `EREResolutionResponse` messages.,\n"
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - EntityMentionIdentifier
@@ -170,43 +172,43 @@ description: "A container that groups the attributes needed to identify an entit
   \ entity that is initially the only cluster member.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 attributes:
-  sourceId:
-    name: sourceId
+  source_id:
+    name: source_id
     description: "The ID or URI of the ERS client that originated the request. This\
       \ identifies an application or a \nperson accessing the ERS system.\n"
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
-    alias: sourceId
+    alias: source_id
     owner: EntityMentionIdentifier
     domain_of:
     - EntityMentionIdentifier
     range: string
     required: true
-  requestId:
-    name: requestId
+  request_id:
+    name: request_id
     description: "A string representing the unique ID of the request made to the ERS\
       \ system. In general, this is unique\nonly within the scope of the source and\
       \ the entity type, ie, within `sourceId` and `entityType`. \n\nMoreover, this\
       \ is **not** the same as `ereRequestId`, which instead, is internal to the ERE\
       \ and is \nused to match responses to requests.\n"
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
-    alias: requestId
+    alias: request_id
     owner: EntityMentionIdentifier
     domain_of:
     - EntityMentionIdentifier
     range: string
     required: true
-  entityType:
-    name: entityType
+  entity_type:
+    name: entity_type
     description: "A string representing the entity type (based on CET). This is typically\
       \ a URI.\n\nNote that this is at this level, and not at `EntityMention`, since,\
       \ as said above, \nit's needed to identify the entity, even when its content\
       \ is not present. For the same\nreason, it's used both for `EREResolutionRequest`\
-      \ and `EREResolutionResponse` messages., \n"
-    from_schema: https://data.europa.eu/ers/schema/ere
+      \ and `EREResolutionResponse` messages.,\n"
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
-    alias: entityType
+    alias: entity_type
     owner: EntityMentionIdentifier
     domain_of:
     - EntityMentionIdentifier

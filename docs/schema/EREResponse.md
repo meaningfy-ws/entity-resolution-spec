@@ -1,9 +1,9 @@
 
 
-# Class: ERERequest 
+# Class: EREResponse 
 
 
-_Root class to represent all the requests sent to the ERE._
+_Root class to represent all the responses sent by the ERE._
 
 __
 
@@ -13,7 +13,7 @@ __
 * __NOTE__: this is an abstract class and should not be instantiated directly
 
 
-URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
+URI: [ere:EREResponse](https://data.europa.eu/ers/schema/ere/EREResponse)
 
 
 
@@ -21,23 +21,25 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 ```mermaid
  classDiagram
-    class ERERequest
-    click ERERequest href "../ERERequest/"
-      EREMessage <|-- ERERequest
+    class EREResponse
+    click EREResponse href "../EREResponse/"
+      EREMessage <|-- EREResponse
         click EREMessage href "../EREMessage/"
       
 
-      ERERequest <|-- EntityMentionResolutionRequest
-        click EntityMentionResolutionRequest href "../EntityMentionResolutionRequest/"
-      ERERequest <|-- FullRebuildRequest
-        click FullRebuildRequest href "../FullRebuildRequest/"
+      EREResponse <|-- EntityMentionResolutionResponse
+        click EntityMentionResolutionResponse href "../EntityMentionResolutionResponse/"
+      EREResponse <|-- EREErrorResponse
+        click EREErrorResponse href "../EREErrorResponse/"
+      EREResponse <|-- FullRebuildResponse
+        click FullRebuildResponse href "../FullRebuildResponse/"
       
 
-      ERERequest : ere_request_id
+      EREResponse : ere_request_id
         
-      ERERequest : timestamp
+      EREResponse : timestamp
         
-      ERERequest : type
+      EREResponse : type
         
       
 ```
@@ -48,9 +50,10 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 ## Inheritance
 * [EREMessage](EREMessage.md)
-    * **ERERequest**
-        * [EntityMentionResolutionRequest](EntityMentionResolutionRequest.md)
-        * [FullRebuildRequest](FullRebuildRequest.md)
+    * **EREResponse**
+        * [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md)
+        * [EREErrorResponse](EREErrorResponse.md)
+        * [FullRebuildResponse](FullRebuildResponse.md)
 
 
 
@@ -90,8 +93,8 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:ERERequest |
-| native | ere:ERERequest |
+| self | ere:EREResponse |
+| native | ere:EREResponse |
 
 
 
@@ -106,8 +109,8 @@ URI: [ere:ERERequest](https://data.europa.eu/ers/schema/ere/ERERequest)
 
 <details>
 ```yaml
-name: ERERequest
-description: 'Root class to represent all the requests sent to the ERE.
+name: EREResponse
+description: 'Root class to represent all the responses sent by the ERE.
 
   '
 from_schema: https://data.europa.eu/ers/schema/ere
@@ -121,8 +124,8 @@ abstract: true
 
 <details>
 ```yaml
-name: ERERequest
-description: 'Root class to represent all the requests sent to the ERE.
+name: EREResponse
+description: 'Root class to represent all the responses sent by the ERE.
 
   '
 from_schema: https://data.europa.eu/ers/schema/ere
@@ -140,7 +143,7 @@ attributes:
     rank: 1000
     designates_type: true
     alias: type
-    owner: ERERequest
+    owner: EREResponse
     domain_of:
     - EREMessage
     range: string
@@ -156,7 +159,7 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
     alias: ere_request_id
-    owner: ERERequest
+    owner: EREResponse
     domain_of:
     - EREMessage
     range: string
@@ -169,7 +172,7 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
     alias: timestamp
-    owner: ERERequest
+    owner: EREResponse
     domain_of:
     - EREMessage
     range: datetime

@@ -1,6 +1,6 @@
 
 
-# Slot: requestId 
+# Slot: request_id 
 
 
 _A string representing the unique ID of the request made to the ERS system. In general, this is unique_
@@ -19,8 +19,8 @@ __
 
 
 
-URI: [ere:requestId](https://data.europa.eu/ers/schema/ere/requestId)
-Alias: requestId
+URI: [ere:request_id](https://data.europa.eu/ers/schema/ere/request_id)
+Alias: request_id
 
 <!-- no inheritance hierarchy -->
 
@@ -67,8 +67,8 @@ Alias: requestId
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:requestId |
-| native | ere:requestId |
+| self | ere:request_id |
+| native | ere:request_id |
 
 
 
@@ -77,7 +77,7 @@ Alias: requestId
 
 <details>
 ```yaml
-name: requestId
+name: request_id
 description: "A string representing the unique ID of the request made to the ERS system.\
   \ In general, this is unique\nonly within the scope of the source and the entity\
   \ type, ie, within `sourceId` and `entityType`. \n\nMoreover, this is **not** the\
@@ -85,7 +85,7 @@ description: "A string representing the unique ID of the request made to the ERS
   \ match responses to requests.\n"
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: requestId
+alias: request_id
 owner: EntityMentionIdentifier
 domain_of:
 - EntityMentionIdentifier

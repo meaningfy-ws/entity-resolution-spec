@@ -1,49 +1,24 @@
-
-
-# Slot: entityType 
-
-
-_A string representing the entity type (based on CET). This is typically a URI._
-
-__
-
-_Note that this is at this level, and not at `EntityMention`, since, as said above, _
-
-_it's needed to identify the entity, even when its content is not present. For the same_
-
-_reason, it's used both for `EREResolutionRequest` and `EREResolutionResponse` messages., _
-
-__
+# Enum: EntityType 
 
 
 
 
-
-URI: [ere:entityType](https://data.europa.eu/ers/schema/ere/entityType)
-Alias: entityType
-
-<!-- no inheritance hierarchy -->
+_Types of entities that can be resolved_
 
 
 
+URI: [ere:EntityType](https://data.europa.eu/ers/schema/ere/EntityType)
 
+## Permissible Values
 
-## Applicable Classes
-
-| Name | Description | Modifies Slot |
+| Value | Meaning | Description |
 | --- | --- | --- |
-| [EntityMentionIdentifier](EntityMentionIdentifier.md) | A container that groups the attributes needed to identify an entity mention i... |  no  |
+| ORGANISATION | None | An organization entity |
+| PROCEDURE | None | A procurement procedure entity |
 
 
 
 
-
-
-## Properties
-
-* Range: [String](String.md)
-
-* Required: True
 
 
 
@@ -63,34 +38,23 @@ Alias: entityType
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | ere:entityType |
-| native | ere:entityType |
-
-
 
 
 ## LinkML Source
 
 <details>
 ```yaml
-name: entityType
-description: "A string representing the entity type (based on CET). This is typically\
-  \ a URI.\n\nNote that this is at this level, and not at `EntityMention`, since,\
-  \ as said above, \nit's needed to identify the entity, even when its content is\
-  \ not present. For the same\nreason, it's used both for `EREResolutionRequest` and\
-  \ `EREResolutionResponse` messages., \n"
+name: EntityType
+description: Types of entities that can be resolved
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
-alias: entityType
-owner: EntityMentionIdentifier
-domain_of:
-- EntityMentionIdentifier
-range: string
-required: true
+permissible_values:
+  ORGANISATION:
+    text: ORGANISATION
+    description: An organization entity
+  PROCEDURE:
+    text: PROCEDURE
+    description: A procurement procedure entity
 
 ```
 </details>

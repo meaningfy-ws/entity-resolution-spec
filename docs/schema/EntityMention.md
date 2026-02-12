@@ -5,7 +5,7 @@
 
 _An entity mention is a representation of a real-world entity, as provided by the ERS._
 
-_It contains the entity data, along with metadata like type and format.      _
+_It contains the entity data, along with metadata like type and format._
 
 __
 
@@ -25,7 +25,7 @@ URI: [ere:EntityMention](https://data.europa.eu/ers/schema/ere/EntityMention)
     click EntityMention href "../EntityMention/"
       EntityMention : content
         
-      EntityMention : contentType
+      EntityMention : content_type
         
       EntityMention : identifier
         
@@ -37,6 +37,8 @@ URI: [ere:EntityMention](https://data.europa.eu/ers/schema/ere/EntityMention)
         click EntityMentionIdentifier href "../EntityMentionIdentifier/"
     
 
+        
+      EntityMention : parsed_representation
         
       
 ```
@@ -52,8 +54,9 @@ URI: [ere:EntityMention](https://data.europa.eu/ers/schema/ere/EntityMention)
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [identifier](identifier.md) | 1 <br/> [EntityMentionIdentifier](EntityMentionIdentifier.md) | The identifier (with the ERS-derived components) of the entity mention | direct |
-| [contentType](contentType.md) | 1 <br/> [String](String.md) | A string about the MIME format of `content` (e | direct |
+| [content_type](content_type.md) | 1 <br/> [String](String.md) | A string about the MIME format of `content` (e | direct |
 | [content](content.md) | 1 <br/> [String](String.md) | A code string representing the entity mention details (eg, RDF or XML descrip... | direct |
+| [parsed_representation](parsed_representation.md) | 0..1 <br/> [String](String.md) | JSON representation of the parsed entity data | direct |
 
 
 
@@ -63,7 +66,7 @@ URI: [ere:EntityMention](https://data.europa.eu/ers/schema/ere/EntityMention)
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [EntityMentionResolutionRequest](EntityMentionResolutionRequest.md) | [entityMention](entityMention.md) | range | [EntityMention](EntityMention.md) |
+| [EntityMentionResolutionRequest](EntityMentionResolutionRequest.md) | [entity_mention](entity_mention.md) | range | [EntityMention](EntityMention.md) |
 
 
 
@@ -107,9 +110,12 @@ URI: [ere:EntityMention](https://data.europa.eu/ers/schema/ere/EntityMention)
 <details>
 ```yaml
 name: EntityMention
-description: "An entity mention is a representation of a real-world entity, as provided\
-  \ by the ERS.\nIt contains the entity data, along with metadata like type and format.\
-  \      \n"
+description: 'An entity mention is a representation of a real-world entity, as provided
+  by the ERS.
+
+  It contains the entity data, along with metadata like type and format.
+
+  '
 from_schema: https://data.europa.eu/ers/schema/ere
 attributes:
   identifier:
@@ -117,18 +123,18 @@ attributes:
     description: 'The identifier (with the ERS-derived components) of the entity mention.
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
-    rank: 1000
+    from_schema: https://data.europa.eu/ers/schema/ers
     domain_of:
+    - CanonicalEntity
     - EntityMention
     range: EntityMentionIdentifier
     required: true
-  contentType:
-    name: contentType
+  content_type:
+    name: content_type
     description: 'A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - EntityMention
@@ -139,11 +145,20 @@ attributes:
       XML description).
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
     - EntityMention
     required: true
+  parsed_representation:
+    name: parsed_representation
+    description: 'JSON representation of the parsed entity data.
+
+      '
+    from_schema: https://data.europa.eu/ers/schema/ers
+    rank: 1000
+    domain_of:
+    - EntityMention
 
 ```
 </details>
@@ -153,9 +168,12 @@ attributes:
 <details>
 ```yaml
 name: EntityMention
-description: "An entity mention is a representation of a real-world entity, as provided\
-  \ by the ERS.\nIt contains the entity data, along with metadata like type and format.\
-  \      \n"
+description: 'An entity mention is a representation of a real-world entity, as provided
+  by the ERS.
+
+  It contains the entity data, along with metadata like type and format.
+
+  '
 from_schema: https://data.europa.eu/ers/schema/ere
 attributes:
   identifier:
@@ -163,22 +181,22 @@ attributes:
     description: 'The identifier (with the ERS-derived components) of the entity mention.
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
-    rank: 1000
+    from_schema: https://data.europa.eu/ers/schema/ers
     alias: identifier
     owner: EntityMention
     domain_of:
+    - CanonicalEntity
     - EntityMention
     range: EntityMentionIdentifier
     required: true
-  contentType:
-    name: contentType
+  content_type:
+    name: content_type
     description: 'A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
-    alias: contentType
+    alias: content_type
     owner: EntityMention
     domain_of:
     - EntityMention
@@ -190,7 +208,7 @@ attributes:
       XML description).
 
       '
-    from_schema: https://data.europa.eu/ers/schema/ere
+    from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     alias: content
     owner: EntityMention
@@ -198,6 +216,18 @@ attributes:
     - EntityMention
     range: string
     required: true
+  parsed_representation:
+    name: parsed_representation
+    description: 'JSON representation of the parsed entity data.
+
+      '
+    from_schema: https://data.europa.eu/ers/schema/ers
+    rank: 1000
+    alias: parsed_representation
+    owner: EntityMention
+    domain_of:
+    - EntityMention
+    range: string
 
 ```
 </details>
