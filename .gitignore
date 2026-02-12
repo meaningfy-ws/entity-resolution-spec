@@ -219,3 +219,8 @@ __marimo__/
 .vscode/
 .mypy_cache/
 .pyre/
+
+# CI/CD artifacts
+pylint_report.txt
+test-results.xml
+.scannerwork/
