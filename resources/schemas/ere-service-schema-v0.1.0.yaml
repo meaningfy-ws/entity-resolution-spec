@@ -30,11 +30,11 @@ classes:
           `EntityMentionResolutionRequest` or `EntityResolutionResult`
         designates_type: true
         required: true
-      ereRequestId:
+      ere_request_id:
         # We decided we don't need a responseId for the moment
         description: |
           A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-          This **is not** the same as `requestId` + `sourceId`.
+          This **is not** the same as `request_id` + `source_id`.
         required: true
       timestamp:
         range: datetime
@@ -61,13 +61,13 @@ classes:
     description: |
       An entity resolution request sent to the ERE, containing the entity to be resolved.
     attributes:
-      entityMention:
+      entity_mention:
         range: EntityMention
         description: |
           The data about the entity to be resolved. Note that, at least for the moment, we don't support
           batch requests, so this property is single-valued.
         required: true
-      excludedClusterIds:
+      excluded_cluster_ids:
         description: |
           When this is present, the resolution must not bin the entity mention into any of the
           listed clusters. This can be used to reject a previous resolution proposed by the ERE.
@@ -84,38 +84,38 @@ classes:
         value: | 
           {
             "type": "EntityMentionResolutionRequest",
-            "entityMention": { 
+            "entity_mention": { 
               "identifier": {
-                "requestId": "324fs3r345vx",
-                "sourceId": "TEDSWS",
-                "entityType": "http://www.w3.org/ns/org#Organization"
+                "request_id": "324fs3r345vx",
+                "source_id": "TEDSWS",
+                "entity_type": "http://www.w3.org/ns/org#Organization"
               },
               "content": "epd:ent005 a org:Organization; ...   cccev:telephone \"+44 1924306780\" .",
-              "contentType": "text/turtle"
+              "content_type": "text/turtle"
             },
             "timestamp": "2026-01-14T12:34:56Z",
             // As said, we need this internal ID and it can be auto-generated (eg, with UUIDs)
-            "ereRequestId": "324fs3r345vx:01"
+            "ere_request_id": "324fs3r345vx:01"
           }
       - description: a re-rebuild request (ie, carrying a rejection list)
         value: |
           {
             "type": "EntityMentionResolutionRequest",
-            "entityMention": { 
+            "entity_mention": { 
               "identifier": {
-                "requestId": "324fs3r345vxab",
-                "sourceId": "TEDSWS",
-                "entityType": "http://www.w3.org/ns/org#Organization",
+                "request_id": "324fs3r345vxab",
+                "source_id": "TEDSWS",
+                "entity_type": "http://www.w3.org/ns/org#Organization",
               },
               "content": "epd:ent005 a org:Organization; ...   cccev:telephone \"+44 1924306780\" .",
-              "contentType": "text/turtle"
+              "content_type": "text/turtle"
             },
-            "excludedClusterIds": [
+            "excluded_cluster_ids": [
               "324fs3r345vx-bb45we",
               "324fs3r345vx-cc67ui"
             ],
             "timestamp": "2026-01-14T12:40:56Z",
-            "ereRequestId": "324fs3r345vxab:01"
+            "ere_request_id": "324fs3r345vxab:01"
           }
 
 
@@ -132,12 +132,12 @@ classes:
       we might need to return multiple `EntityMentionResolutionResponse` messages, each with additional 
       properties such as `entityIndex` and `totalEntities`.
     attributes:
-      entityMentionId: 
+      entity_mention_id:
         range: EntityMentionIdentifier
         description: |
           The identifier of the entity mention that has been resolved.
 
-          This isn't strictly needed, since the `ereRequestId` already links the response to 
+          This isn't strictly needed, since the `ere_request_id` already links the response to 
           the request's entity mention. Yet, it's reported for convenience.
         required: true
       candidates:
@@ -151,23 +151,23 @@ classes:
       - value: |
           {
             "type": "EntityMentionResolutionResponse",
-            "entityMentionId": {
-              "requestId": "324fs3r345vx",
-              "sourceId": "TEDSWS",
-              "entityType": "http://www.w3.org/ns/org#Organization"
+            "entity_mention_id": {
+              "request_id": "324fs3r345vx",
+              "source_id": "TEDSWS",
+              "entity_type": "http://www.w3.org/ns/org#Organization"
             },
             "candidates": [
               { 
-                "clusterId": "324fs3r345vx-aa32wa",
-                "confidenceScore": 0.91
+                "cluster_id": "324fs3r345vx-aa32wa",
+                "confidence_score": 0.91
               },
               { 
-                "clusterId": "324fs3r345vx-bb45we",
-                "confidenceScore": 0.65
+                "cluster_id": "324fs3r345vx-bb45we",
+                "confidence_score": 0.65
               }
             ],
             "timestamp": "2026-01-14T12:34:59Z",
-            "ereRequestId": "324fs3r345vx:01"
+            "ere_request_id": "324fs3r345vx:01"
           }
               
 
@@ -180,24 +180,24 @@ classes:
 
       The attributes of this class are based on [RFC-9457](https://datatracker.ietf.org/doc/html/rfc9457).
     attributes:
-      errorType:
+      error_type:
         description: |
           A string representing the error type, eg, the FQN of the raised exception.
 
           This corresponds to RFC-9457's `type`.
         required: true
-      errorTitle:
+      error_title:
         description: |
           A human readable brief message about the error that occurred.
 
           This corresponds to RFC-9457's `title`.
-      errorDetail:
+      error_detail:
         description: |
           A human readable detailed message about the error that occurred.
 
           This corresponds to RFC-9457's `detail`.
       
-      errorTrace:
+      error_trace:
         description: |
           A string representing a (stack) trace of the error that occurred.
 
@@ -207,12 +207,12 @@ classes:
       - value: |
           {
             "type": "EREErrorResponse",
-            "requestId": "324fs3r345vx",
-            "errorType": "ere.exceptions.MalformedRequestError",
-            "errorTitle": "The entity data is missing in the request",
-            "errorDetail": "The 'entity' attribute is required in EntityMentionResolutionRequest message",
+            "request_id": "324fs3r345vx",
+            "error_type": "ere.exceptions.MalformedRequestError",
+            "error_title": "The entity data is missing in the request",
+            "error_detail": "The 'entity' attribute is required in EntityMentionResolutionRequest message",
             // Optional and not recommended for production use
-            "errorTrace": "Traceback (most recent call last):\n  File \"/app/ere/service.py\", line 45, in process_request\n..."
+            "error_trace": "Traceback (most recent call last):\n  File \"/app/ere/service.py\", line 45, in process_request\n..."
           }
 
 
@@ -230,7 +230,7 @@ classes:
 
       Moreover:
       * The ERE must keep track of past `EntityMention` marked as canonical.
-      * The ERE must retain requests with `excludedClusterIds` and apply them again when the 
+      * The ERE must retain requests with `excluded_cluster_ids` and apply them again when the 
         same entity mention is re-sent after the full rebuild. TODO: see notes about these properties,
         on the possible need of withdrawing exclusions.
 
@@ -240,6 +240,6 @@ classes:
     description: |
       A response to a `FullRebuildRequest`, confirming that the rebuild process has started.
 
-      As for all the requests, this carries the `ereRequestId`, which matches the full rebuild 
+      As for all the requests, this carries the `ere_request_id`, which matches the full rebuild 
       request being acknowledged.
 

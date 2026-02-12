@@ -77,7 +77,7 @@ classes:
           The identifier (with the ERS-derived components) of the entity mention.
         range: EntityMentionIdentifier
         required: true
-      contentType:
+      content_type:
         description: |
           A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
         required: true
@@ -85,7 +85,7 @@ classes:
         description: |
           A code string representing the entity mention details (eg, RDF or XML description).
         required: true
-      parsedRepresentation:
+      parsed_representation:
         description: |
           JSON representation of the parsed entity data.
 
@@ -99,12 +99,12 @@ classes:
       (eg, string concatenation plus some prefix). Similarly, a cluster ID (mentioned in various places in 
       in this hereby ERE service schema) can be built from an entity that is initially the only cluster member.
     attributes:
-      sourceId:
+      source_id:
         description: |
           The ID or URI of the ERS client that originated the request. This identifies an application or a 
           person accessing the ERS system.
         required: true
-      requestId:
+      request_id:
         description: |
           A string representing the unique ID of the request made to the ERS system. In general, this is unique
           only within the scope of the source and the entity type, ie, within `sourceId` and `entityType`. 
@@ -113,7 +113,7 @@ classes:
           used to match responses to requests.
         range: string
         required: true
-      entityType:
+      entity_type:
         description: |
           A string representing the entity type (based on CET). This is typically a URI.
 
@@ -133,12 +133,12 @@ classes:
       A cluster reference is used to report the association between an entity mention and a cluster 
       of equivalence.
     attributes:
-      clusterId:
+      cluster_id:
         description: |
           The identifier of the cluster/canonical entity that is considered equivalent to the
           subject entity mention that an `EntityMentionResolutionResponse` refers to.
         required: true
-      confidenceScore:
+      confidence_score:
         range: float
         description: |
           A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention
@@ -155,7 +155,7 @@ classes:
       id:
         description: Unique identifier for the decision
         required: true
-      aboutEntityMention:
+      about_entity_mention:
         range: EntityMentionIdentifier
         description: Reference to the entity mention being resolved
         required: true
@@ -166,7 +166,7 @@ classes:
       action:
         range: DecisionAction
         description: Action taken by curator
-      acceptedCandidate:
+      accepted_candidate:
         range: ClusterReference
         description: The cluster reference accepted for this entity mention
       candidates:
@@ -174,11 +174,11 @@ classes:
         multivalued: true
         description: All cluster references proposed by ERE, ordered by confidence
         required: true
-      createdAt:
+      created_at:
         range: datetime
         description: Timestamp when the decision was created
         required: true
-      updatedAt:
+      updated_at:
         range: datetime
         description: Timestamp when the decision was last updated
 
@@ -195,15 +195,15 @@ classes:
         range: AuditAction
         description: The action performed
         required: true
-      instanceType:
+      instance_type:
         description: Type of entity being modified (e.g., Decision)
         required: true
-      instanceId:
+      instance_id:
         description: Identifier of the modified entity
         required: true
       changes:
         description: JSON representation of action-specific context
-      createdAt:
+      created_at:
         range: datetime
         description: Timestamp when the action was performed
         required: true

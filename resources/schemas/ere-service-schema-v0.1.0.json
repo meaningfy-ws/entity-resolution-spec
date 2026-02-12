@@ -29,7 +29,7 @@
             "null"
           ]
         },
-        "createdAt": {
+        "created_at": {
           "description": "Timestamp when the action was performed",
           "format": "date-time",
           "type": "string"
@@ -38,11 +38,11 @@
           "description": "Unique identifier for the audit entry",
           "type": "string"
         },
-        "instanceId": {
+        "instance_id": {
           "description": "Identifier of the modified entity",
           "type": "string"
         },
-        "instanceType": {
+        "instance_type": {
           "description": "Type of entity being modified (e.g., Decision)",
           "type": "string"
         }
@@ -51,22 +51,47 @@
         "id",
         "actor",
         "action",
-        "instanceType",
-        "instanceId",
-        "createdAt"
+        "instance_type",
+        "instance_id",
+        "created_at"
       ],
       "title": "AuditLog",
+      "type": "object"
+    },
+    "CanonicalEntity": {
+      "additionalProperties": false,
+      "description": "A logical identity construct providing a stable identity anchor.\nRepresents a cluster of equivalent entity mentions.",
+      "properties": {
+        "equivalent_to": {
+          "description": "Entity mentions that have been resolved to this canonical entity.",
+          "items": {
+            "$ref": "#/$defs/EntityMentionIdentifier"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "identifier": {
+          "description": "Unique identifier for the canonical entity.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identifier"
+      ],
+      "title": "CanonicalEntity",
       "type": "object"
     },
     "ClusterReference": {
       "additionalProperties": false,
       "description": "A reference to a cluster to which an entity is deemed to belong, with an associated confidence score.\n\nA cluster is a set of entity mentions that have been determined to refer to the same real-world entity.\nEach cluster has a unique clusterId.\n\nA cluster reference is used to report the association between an entity mention and a cluster \nof equivalence.",
       "properties": {
-        "clusterId": {
+        "cluster_id": {
           "description": "The identifier of the cluster/canonical entity that is considered equivalent to the\nsubject entity mention that an `EntityMentionResolutionResponse` refers to.\n",
           "type": "string"
         },
-        "confidenceScore": {
+        "confidence_score": {
           "description": "A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention\nand the target canonical entity.\n",
           "maximum": 1.0,
           "minimum": 0.0,
@@ -74,8 +99,8 @@
         }
       },
       "required": [
-        "clusterId",
-        "confidenceScore"
+        "cluster_id",
+        "confidence_score"
       ],
       "title": "ClusterReference",
       "type": "object"
@@ -84,11 +109,11 @@
       "additionalProperties": false,
       "description": "Aggregate root representing a resolution decision requiring curation.\nCaptures the state and outcome of entity mention resolution.",
       "properties": {
-        "aboutEntityMention": {
+        "about_entity_mention": {
           "$ref": "#/$defs/EntityMentionIdentifier",
           "description": "Reference to the entity mention being resolved"
         },
-        "acceptedCandidate": {
+        "accepted_candidate": {
           "anyOf": [
             {
               "$ref": "#/$defs/ClusterReference"
@@ -110,7 +135,7 @@
           },
           "type": "array"
         },
-        "createdAt": {
+        "created_at": {
           "description": "Timestamp when the decision was created",
           "format": "date-time",
           "type": "string"
@@ -123,7 +148,7 @@
           "$ref": "#/$defs/DecisionStatus",
           "description": "Current status in the curation workflow"
         },
-        "updatedAt": {
+        "updated_at": {
           "description": "Timestamp when the decision was last updated",
           "format": "date-time",
           "type": [
@@ -134,10 +159,10 @@
       },
       "required": [
         "id",
-        "aboutEntityMention",
+        "about_entity_mention",
         "status",
         "candidates",
-        "createdAt"
+        "created_at"
       ],
       "title": "Decision",
       "type": "object"
@@ -166,32 +191,32 @@
       "additionalProperties": false,
       "description": "Response sent by the ERE when some error/exception occurs while processing a request.\nFor instance, this may happen if the request is malformed or some internal error happens.\n\nThe attributes of this class are based on [RFC-9457](https://datatracker.ietf.org/doc/html/rfc9457).",
       "properties": {
-        "ereRequestId": {
-          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `requestId` + `sourceId`.\n",
+        "ere_request_id": {
+          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `request_id` + `source_id`.\n",
           "type": "string"
         },
-        "errorDetail": {
+        "error_detail": {
           "description": "A human readable detailed message about the error that occurred.\n\nThis corresponds to RFC-9457's `detail`.\n",
           "type": [
             "string",
             "null"
           ]
         },
-        "errorTitle": {
+        "error_title": {
           "description": "A human readable brief message about the error that occurred.\n\nThis corresponds to RFC-9457's `title`.\n",
           "type": [
             "string",
             "null"
           ]
         },
-        "errorTrace": {
+        "error_trace": {
           "description": "A string representing a (stack) trace of the error that occurred.\n\nThis is optional and typically used for debugging purposes only, since\nexposing this kind of server-side information is a security risk.\n",
           "type": [
             "string",
             "null"
           ]
         },
-        "errorType": {
+        "error_type": {
           "description": "A string representing the error type, eg, the FQN of the raised exception.\n\nThis corresponds to RFC-9457's `type`.\n",
           "type": "string"
         },
@@ -212,9 +237,9 @@
         }
       },
       "required": [
-        "errorType",
+        "error_type",
         "type",
-        "ereRequestId"
+        "ere_request_id"
       ],
       "title": "EREErrorResponse",
       "type": "object"
@@ -227,7 +252,7 @@
           "description": "A code string representing the entity mention details (eg, RDF or XML description).\n",
           "type": "string"
         },
-        "contentType": {
+        "content_type": {
           "description": "A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)\n",
           "type": "string"
         },
@@ -235,7 +260,7 @@
           "$ref": "#/$defs/EntityMentionIdentifier",
           "description": "The identifier (with the ERS-derived components) of the entity mention.\n"
         },
-        "parsedRepresentation": {
+        "parsed_representation": {
           "description": "JSON representation of the parsed entity data.\n",
           "type": [
             "string",
@@ -245,7 +270,7 @@
       },
       "required": [
         "identifier",
-        "contentType",
+        "content_type",
         "content"
       ],
       "title": "EntityMention",
@@ -255,23 +280,23 @@
       "additionalProperties": false,
       "description": "A container that groups the attributes needed to identify an entity mention in a resolution request\nor response.\n\nAs per ERS architectural decision, in the whole ERS and ERE systems, there is always a deterministic\nmethod to build a canonical identifier from the combination of `sourceId`, `requestId` and `entityType`\n(eg, string concatenation plus some prefix). Similarly, a cluster ID (mentioned in various places in \nin this hereby ERE service schema) can be built from an entity that is initially the only cluster member.",
       "properties": {
-        "entityType": {
+        "entity_type": {
           "description": "A string representing the entity type (based on CET). This is typically a URI.\n\nNote that this is at this level, and not at `EntityMention`, since, as said above, \nit's needed to identify the entity, even when its content is not present. For the same\nreason, it's used both for `EREResolutionRequest` and `EREResolutionResponse` messages.,\n",
           "type": "string"
         },
-        "requestId": {
+        "request_id": {
           "description": "A string representing the unique ID of the request made to the ERS system. In general, this is unique\nonly within the scope of the source and the entity type, ie, within `sourceId` and `entityType`. \n\nMoreover, this is **not** the same as `ereRequestId`, which instead, is internal to the ERE and is \nused to match responses to requests.\n",
           "type": "string"
         },
-        "sourceId": {
+        "source_id": {
           "description": "The ID or URI of the ERS client that originated the request. This identifies an application or a \nperson accessing the ERS system.\n",
           "type": "string"
         }
       },
       "required": [
-        "sourceId",
-        "requestId",
-        "entityType"
+        "source_id",
+        "request_id",
+        "entity_type"
       ],
       "title": "EntityMentionIdentifier",
       "type": "object"
@@ -280,15 +305,15 @@
       "additionalProperties": false,
       "description": "An entity resolution request sent to the ERE, containing the entity to be resolved.",
       "properties": {
-        "entityMention": {
+        "entity_mention": {
           "$ref": "#/$defs/EntityMention",
           "description": "The data about the entity to be resolved. Note that, at least for the moment, we don't support\nbatch requests, so this property is single-valued.\n"
         },
-        "ereRequestId": {
-          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `requestId` + `sourceId`.\n",
+        "ere_request_id": {
+          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `request_id` + `source_id`.\n",
           "type": "string"
         },
-        "excludedClusterIds": {
+        "excluded_cluster_ids": {
           "description": "When this is present, the resolution must not bin the entity mention into any of the\nlisted clusters. This can be used to reject a previous resolution proposed by the ERE.\n\nThe exact reaction to this is implementation dependent. In the simplest case, the ERE\nmight just create a singleton cluster with this entity as member. In a more advanced \ncase, it might recompute the similarity with more advanced algorithms or use updated\ndata.\n\nTODO: Can this be revised? What does it happen if an exclusion was made by mistake?\n",
           "items": {
             "type": "string"
@@ -315,9 +340,9 @@
         }
       },
       "required": [
-        "entityMention",
+        "entity_mention",
         "type",
-        "ereRequestId"
+        "ere_request_id"
       ],
       "title": "EntityMentionResolutionRequest",
       "type": "object"
@@ -333,12 +358,12 @@
           },
           "type": "array"
         },
-        "entityMentionId": {
+        "entity_mention_id": {
           "$ref": "#/$defs/EntityMentionIdentifier",
-          "description": "The identifier of the entity mention that has been resolved.\n\nThis isn't strictly needed, since the `ereRequestId` already links the response to \nthe request's entity mention. Yet, it's reported for convenience.\n"
+          "description": "The identifier of the entity mention that has been resolved.\n\nThis isn't strictly needed, since the `ere_request_id` already links the response to \nthe request's entity mention. Yet, it's reported for convenience.\n"
         },
-        "ereRequestId": {
-          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `requestId` + `sourceId`.\n",
+        "ere_request_id": {
+          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `request_id` + `source_id`.\n",
           "type": "string"
         },
         "timestamp": {
@@ -358,10 +383,10 @@
         }
       },
       "required": [
-        "entityMentionId",
+        "entity_mention_id",
         "candidates",
         "type",
-        "ereRequestId"
+        "ere_request_id"
       ],
       "title": "EntityMentionResolutionResponse",
       "type": "object"
@@ -377,10 +402,10 @@
     },
     "FullRebuildRequest": {
       "additionalProperties": false,
-      "description": "A request to reset all the resolutions computed so far and possibly rebuild them as \nrequests about old entities arrive again (and build new entities from scratch as usually).\n\nIt is expected that the ERE client re-sends all the entities to be resolved again,\nusing `EntityMentionResolutionRequest` messages exactly as the first time the resolutions \nwere built. This implies the a client like the ERS logs/persists the entities it receives\nto resolve and also saves manual overriding of ERE results.\n\nMoreover:\n* The ERE must keep track of past `EntityMention` marked as canonical.\n* The ERE must retain requests with `excludedClusterIds` and apply them again when the \n  same entity mention is re-sent after the full rebuild. TODO: see notes about these properties,\n  on the possible need of withdrawing exclusions.",
+      "description": "A request to reset all the resolutions computed so far and possibly rebuild them as \nrequests about old entities arrive again (and build new entities from scratch as usually).\n\nIt is expected that the ERE client re-sends all the entities to be resolved again,\nusing `EntityMentionResolutionRequest` messages exactly as the first time the resolutions \nwere built. This implies the a client like the ERS logs/persists the entities it receives\nto resolve and also saves manual overriding of ERE results.\n\nMoreover:\n* The ERE must keep track of past `EntityMention` marked as canonical.\n* The ERE must retain requests with `excluded_cluster_ids` and apply them again when the \n  same entity mention is re-sent after the full rebuild. TODO: see notes about these properties,\n  on the possible need of withdrawing exclusions.",
       "properties": {
-        "ereRequestId": {
-          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `requestId` + `sourceId`.\n",
+        "ere_request_id": {
+          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `request_id` + `source_id`.\n",
           "type": "string"
         },
         "timestamp": {
@@ -401,17 +426,17 @@
       },
       "required": [
         "type",
-        "ereRequestId"
+        "ere_request_id"
       ],
       "title": "FullRebuildRequest",
       "type": "object"
     },
     "FullRebuildResponse": {
       "additionalProperties": false,
-      "description": "A response to a `FullRebuildRequest`, confirming that the rebuild process has started.\n\nAs for all the requests, this carries the `ereRequestId`, which matches the full rebuild \nrequest being acknowledged.",
+      "description": "A response to a `FullRebuildRequest`, confirming that the rebuild process has started.\n\nAs for all the requests, this carries the `ere_request_id`, which matches the full rebuild \nrequest being acknowledged.",
       "properties": {
-        "ereRequestId": {
-          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `requestId` + `sourceId`.\n",
+        "ere_request_id": {
+          "description": "A string representing the unique ID of an ERE request, or the ID of the request a response is about.\nThis **is not** the same as `request_id` + `source_id`.\n",
           "type": "string"
         },
         "timestamp": {
@@ -432,7 +457,7 @@
       },
       "required": [
         "type",
-        "ereRequestId"
+        "ere_request_id"
       ],
       "title": "FullRebuildResponse",
       "type": "object"

@@ -106,8 +106,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -123,8 +123,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -140,8 +140,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -149,10 +149,10 @@ This **is not** the same as `requestId` + `sourceId`.
 
 class EntityMentionResolutionRequest(ERERequest):
     """An entity resolution request sent to the ERE, containing the entity to be resolved."""
-    entityMention: EntityMention = Field(default=..., description="""The data about the entity to be resolved. Note that, at least for the moment, we don't support
+    entity_mention: EntityMention = Field(default=..., description="""The data about the entity to be resolved. Note that, at least for the moment, we don't support
 batch requests, so this property is single-valued.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EntityMentionResolutionRequest']} })
-    excludedClusterIds: Optional[list[str]] = Field(default=[], description="""When this is present, the resolution must not bin the entity mention into any of the
+    excluded_cluster_ids: Optional[list[str]] = Field(default=[], description="""When this is present, the resolution must not bin the entity mention into any of the
 listed clusters. This can be used to reject a previous resolution proposed by the ERE.
 
 The exact reaction to this is implementation dependent. In the simplest case, the ERE
@@ -170,8 +170,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -186,9 +186,9 @@ Note that, for the moment, we don't support batch requests. In future, we might 
 with multiple subjects in the `EntityMention` content (eg, RDF with multiple subjects), in which case 
 we might need to return multiple `EntityMentionResolutionResponse` messages, each with additional 
 properties such as `entityIndex` and `totalEntities`."""
-    entityMentionId: EntityMentionIdentifier = Field(default=..., description="""The identifier of the entity mention that has been resolved.
+    entity_mention_id: EntityMentionIdentifier = Field(default=..., description="""The identifier of the entity mention that has been resolved.
 
-This isn't strictly needed, since the `ereRequestId` already links the response to 
+This isn't strictly needed, since the `ere_request_id` already links the response to 
 the request's entity mention. Yet, it's reported for convenience.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EntityMentionResolutionResponse']} })
     candidates: list[ClusterReference] = Field(default=..., description="""The set of cluster reference/score pairs representing the candidate clusters
@@ -202,8 +202,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -214,19 +214,19 @@ class EREErrorResponse(EREResponse):
 For instance, this may happen if the request is malformed or some internal error happens.
 
 The attributes of this class are based on [RFC-9457](https://datatracker.ietf.org/doc/html/rfc9457)."""
-    errorType: str = Field(default=..., description="""A string representing the error type, eg, the FQN of the raised exception.
+    error_type: str = Field(default=..., description="""A string representing the error type, eg, the FQN of the raised exception.
 
 This corresponds to RFC-9457's `type`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREErrorResponse']} })
-    errorTitle: Optional[str] = Field(default=None, description="""A human readable brief message about the error that occurred.
+    error_title: Optional[str] = Field(default=None, description="""A human readable brief message about the error that occurred.
 
 This corresponds to RFC-9457's `title`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREErrorResponse']} })
-    errorDetail: Optional[str] = Field(default=None, description="""A human readable detailed message about the error that occurred.
+    error_detail: Optional[str] = Field(default=None, description="""A human readable detailed message about the error that occurred.
 
 This corresponds to RFC-9457's `detail`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREErrorResponse']} })
-    errorTrace: Optional[str] = Field(default=None, description="""A string representing a (stack) trace of the error that occurred.
+    error_trace: Optional[str] = Field(default=None, description="""A string representing a (stack) trace of the error that occurred.
 
 This is optional and typically used for debugging purposes only, since
 exposing this kind of server-side information is a security risk.
@@ -239,8 +239,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -257,7 +257,7 @@ to resolve and also saves manual overriding of ERE results.
 
 Moreover:
 * The ERE must keep track of past `EntityMention` marked as canonical.
-* The ERE must retain requests with `excludedClusterIds` and apply them again when the 
+* The ERE must retain requests with `excluded_cluster_ids` and apply them again when the 
   same entity mention is re-sent after the full rebuild. TODO: see notes about these properties,
   on the possible need of withdrawing exclusions."""
     type: Literal["FullRebuildRequest"] = Field(default="FullRebuildRequest", description="""The type of the request or result.
@@ -268,8 +268,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
@@ -278,7 +278,7 @@ This **is not** the same as `requestId` + `sourceId`.
 class FullRebuildResponse(EREResponse):
     """A response to a `FullRebuildRequest`, confirming that the rebuild process has started.
 
-As for all the requests, this carries the `ereRequestId`, which matches the full rebuild 
+As for all the requests, this carries the `ere_request_id`, which matches the full rebuild 
 request being acknowledged."""
     type: Literal["FullRebuildResponse"] = Field(default="FullRebuildResponse", description="""The type of the request or result.
 
@@ -288,8 +288,8 @@ slot to tell the concrete subclass that an instance (such as a JSON object) belo
 In other words, a particular request will have `type` set with values like 
 `EntityMentionResolutionRequest` or `EntityResolutionResult`
 """, json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['EREMessage']} })
-    ereRequestId: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
-This **is not** the same as `requestId` + `sourceId`.
+    ere_request_id: str = Field(default=..., description="""A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""The time when the message was created. Should be in ISO-8601 format.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREMessage']} })
