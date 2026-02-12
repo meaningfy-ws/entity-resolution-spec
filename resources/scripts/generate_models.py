@@ -8,7 +8,7 @@ from linkml.generators.pydanticgen.pydanticgen import SplitMode
 PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
 SCHEMAS_DIR = PROJECT_ROOT / "resources" / "schemas"
 TEMPLATE_DIR = PROJECT_ROOT / "resources" / "templates"
-MODELS_DIR = PROJECT_ROOT / "src" / "ere" / "models"
+MODELS_DIR = PROJECT_ROOT / "src" / "erspec" / "models"
 
 # TODO: get these constants as args from cli when called from makefile
 ERE_SCHEMA = SCHEMAS_DIR / "ere-service-schema-v0.1.0.yaml"

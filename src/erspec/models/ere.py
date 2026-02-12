@@ -19,7 +19,7 @@ from .core import (
     EntityMentionIdentifier
 )
 
-from ere.models.pydantic_model import PydanticModel
+from erspec.models.pydantic_model import PydanticModel
 
 
 metamodel_version = "None"

@@ -12,7 +12,7 @@ from pydantic import (
     Field
 )
 
-from ere.models.pydantic_model import PydanticModel
+from erspec.models.pydantic_model import PydanticModel
 
 
 metamodel_version = "None"

@@ -1,6 +1,6 @@
 {# Filters out LinkML boilerplate: ConfiguredBaseModel and LinkMLMeta #}
 {% if name != "LinkMLMeta" and name != "ConfiguredBaseModel" %}
-from ere.models.pydantic_model import PydanticModel
+from erspec.models.pydantic_model import PydanticModel
 
 ConfiguredBaseModel = PydanticModel
 {% endif %}
