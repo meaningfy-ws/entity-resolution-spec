@@ -1,5 +1,63 @@
 {
   "$defs": {
+    "AuditAction": {
+      "description": "Actions recorded in the audit log",
+      "enum": [
+        "ACCEPT",
+        "REJECT",
+        "ASSIGN"
+      ],
+      "title": "AuditAction",
+      "type": "string"
+    },
+    "AuditLog": {
+      "additionalProperties": false,
+      "description": "Audit trail entry for curation actions",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/AuditAction",
+          "description": "The action performed"
+        },
+        "actor": {
+          "description": "User identifier who performed the action",
+          "type": "string"
+        },
+        "changes": {
+          "description": "JSON representation of action-specific context",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdAt": {
+          "description": "Timestamp when the action was performed",
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "description": "Unique identifier for the audit entry",
+          "type": "string"
+        },
+        "instanceId": {
+          "description": "Identifier of the modified entity",
+          "type": "string"
+        },
+        "instanceType": {
+          "description": "Type of entity being modified (e.g., Decision)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "actor",
+        "action",
+        "instanceType",
+        "instanceId",
+        "createdAt"
+      ],
+      "title": "AuditLog",
+      "type": "object"
+    },
     "ClusterReference": {
       "additionalProperties": false,
       "description": "A reference to a cluster to which an entity is deemed to belong, with an associated confidence score.\n\nA cluster is a set of entity mentions that have been determined to refer to the same real-world entity.\nEach cluster has a unique clusterId.\n\nA cluster reference is used to report the association between an entity mention and a cluster \nof equivalence.",
@@ -21,6 +79,88 @@
       ],
       "title": "ClusterReference",
       "type": "object"
+    },
+    "Decision": {
+      "additionalProperties": false,
+      "description": "Aggregate root representing a resolution decision requiring curation.\nCaptures the state and outcome of entity mention resolution.",
+      "properties": {
+        "aboutEntityMention": {
+          "$ref": "#/$defs/EntityMentionIdentifier",
+          "description": "Reference to the entity mention being resolved"
+        },
+        "acceptedCandidate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ClusterReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The cluster reference accepted for this entity mention"
+        },
+        "action": {
+          "$ref": "#/$defs/DecisionAction",
+          "description": "Action taken by curator"
+        },
+        "candidates": {
+          "description": "All cluster references proposed by ERE, ordered by confidence",
+          "items": {
+            "$ref": "#/$defs/ClusterReference"
+          },
+          "type": "array"
+        },
+        "createdAt": {
+          "description": "Timestamp when the decision was created",
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "description": "Unique identifier for the decision",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/DecisionStatus",
+          "description": "Current status in the curation workflow"
+        },
+        "updatedAt": {
+          "description": "Timestamp when the decision was last updated",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "aboutEntityMention",
+        "status",
+        "candidates",
+        "createdAt"
+      ],
+      "title": "Decision",
+      "type": "object"
+    },
+    "DecisionAction": {
+      "description": "Action taken on a decision by the curator",
+      "enum": [
+        "ACCEPT_TOP",
+        "ACCEPT_ALTERNATIVE",
+        "REJECT_ALL"
+      ],
+      "title": "DecisionAction",
+      "type": "string"
+    },
+    "DecisionStatus": {
+      "description": "Status of a resolution decision in the curation workflow",
+      "enum": [
+        "AUTOMATIC_CONFIDENT",
+        "PENDING_MANUAL_REVIEW",
+        "MANUALLY_REVIEWED"
+      ],
+      "title": "DecisionStatus",
+      "type": "string"
     },
     "EREErrorResponse": {
       "additionalProperties": false,
@@ -94,6 +234,13 @@
         "identifier": {
           "$ref": "#/$defs/EntityMentionIdentifier",
           "description": "The identifier (with the ERS-derived components) of the entity mention.\n"
+        },
+        "parsedRepresentation": {
+          "description": "JSON representation of the parsed entity data.\n",
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
@@ -109,7 +256,7 @@
       "description": "A container that groups the attributes needed to identify an entity mention in a resolution request\nor response.\n\nAs per ERS architectural decision, in the whole ERS and ERE systems, there is always a deterministic\nmethod to build a canonical identifier from the combination of `sourceId`, `requestId` and `entityType`\n(eg, string concatenation plus some prefix). Similarly, a cluster ID (mentioned in various places in \nin this hereby ERE service schema) can be built from an entity that is initially the only cluster member.",
       "properties": {
         "entityType": {
-          "description": "A string representing the entity type (based on CET). This is typically a URI.\n\nNote that this is at this level, and not at `EntityMention`, since, as said above, \nit's needed to identify the entity, even when its content is not present. For the same\nreason, it's used both for `EREResolutionRequest` and `EREResolutionResponse` messages., \n",
+          "description": "A string representing the entity type (based on CET). This is typically a URI.\n\nNote that this is at this level, and not at `EntityMention`, since, as said above, \nit's needed to identify the entity, even when its content is not present. For the same\nreason, it's used both for `EREResolutionRequest` and `EREResolutionResponse` messages.,\n",
           "type": "string"
         },
         "requestId": {
@@ -218,6 +365,15 @@
       ],
       "title": "EntityMentionResolutionResponse",
       "type": "object"
+    },
+    "EntityType": {
+      "description": "Types of entities that can be resolved",
+      "enum": [
+        "ORGANISATION",
+        "PROCEDURE"
+      ],
+      "title": "EntityType",
+      "type": "string"
     },
     "FullRebuildRequest": {
       "additionalProperties": false,

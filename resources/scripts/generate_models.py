@@ -10,7 +10,8 @@ SCHEMAS_DIR = PROJECT_ROOT / "resources" / "schemas"
 TEMPLATE_DIR = PROJECT_ROOT / "resources" / "templates"
 MODELS_DIR = PROJECT_ROOT / "src" / "ere" / "models"
 
-ERS_SCHEMA = SCHEMAS_DIR / "ers-schema-v0.1.0.yaml"
+# TODO: get these constants as args from cli when called from makefile
+ERE_SCHEMA = SCHEMAS_DIR / "ere-service-schema-v0.1.0.yaml"
 
 
 def generate_models() -> None:
@@ -23,8 +24,8 @@ def generate_models() -> None:
     
     try:
         results = PydanticGenerator.generate_split(
-            schema=str(ERS_SCHEMA.name),
-            output_path=str(MODELS_DIR / "ers.py"),
+            schema=str(ERE_SCHEMA.name),
+            output_path=str(MODELS_DIR / "ere.py"),
             split_pattern=".{{ schema.name | replace('Schema', '') | replace('-', '_') | lower }}",
             template_dir=str(TEMPLATE_DIR),
             split_mode=SplitMode.FULL,

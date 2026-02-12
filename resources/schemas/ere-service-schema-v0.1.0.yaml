@@ -1,9 +1,10 @@
 id: https://data.europa.eu/ers/schema/ere
-name: coreSchema
+name: ereServiceSchema
 description: A LinkML schema for the ERS/ERE Service
 version: 0.1.0
 imports:
   - linkml:types
+  - ./core-schema-v0.1.0
 prefixes:
   linkml: https://w3id.org/linkml/
   ere: https://data.europa.eu/ers/schema/ere/
@@ -214,87 +215,6 @@ classes:
             "errorTrace": "Traceback (most recent call last):\n  File \"/app/ere/service.py\", line 45, in process_request\n..."
           }
 
-
-  EntityMention:
-    description: |
-      An entity mention is a representation of a real-world entity, as provided by the ERS.
-      It contains the entity data, along with metadata like type and format.      
-    attributes:
-      identifier: 
-        description: |
-          The identifier (with the ERS-derived components) of the entity mention.
-        range: EntityMentionIdentifier
-        required: true
-      contentType:
-        description: |
-          A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
-        required: true
-      content:
-        description: |
-          A code string representing the entity mention details (eg, RDF or XML description).
-        required: true
-      parsedRepresentation:
-        description: |
-          JSON representation of the parsed entity data.
-
-
-  EntityMentionIdentifier:
-    description: |
-      A container that groups the attributes needed to identify an entity mention in a resolution request
-      or response.
-
-      As per ERS architectural decision, in the whole ERS and ERE systems, there is always a deterministic
-      method to build a canonical identifier from the combination of `sourceId`, `requestId` and `entityType`
-      (eg, string concatenation plus some prefix). Similarly, a cluster ID (mentioned in various places in 
-      in this hereby ERE service schema) can be built from an entity that is initially the only cluster member.
-    attributes:
-      sourceId:
-        description: |
-          The ID or URI of the ERS client that originated the request. This identifies an application or a 
-          person accessing the ERS system.
-        required: true
-      requestId: 
-        description: |
-          A string representing the unique ID of the request made to the ERS system. In general, this is unique
-          only within the scope of the source and the entity type, ie, within `sourceId` and `entityType`. 
-          
-          Moreover, this is **not** the same as `ereRequestId`, which instead, is internal to the ERE and is 
-          used to match responses to requests.
-        range: string
-        required: true
-      entityType:
-        description: |
-          A string representing the entity type (based on CET). This is typically a URI.
-
-          Note that this is at this level, and not at `EntityMention`, since, as said above, 
-          it's needed to identify the entity, even when its content is not present. For the same
-          reason, it's used both for `EREResolutionRequest` and `EREResolutionResponse` messages., 
-        required: true
-
-
-  ClusterReference:
-    description: |
-      A reference to a cluster to which an entity is deemed to belong, with an associated confidence score.
-
-      A cluster is a set of entity mentions that have been determined to refer to the same real-world entity.
-      Each cluster has a unique clusterId.
-      
-      A cluster reference is used to report the association between an entity mention and a cluster 
-      of equivalence.
-    attributes:
-      clusterId:
-        description: |
-          The identifier of the cluster/canonical entity that is considered equivalent to the
-          subject entity mention that an `EntityMentionResolutionResponse` refers to.
-        required: true
-      confidenceScore:
-        range: float
-        description: |
-          A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention
-          and the target canonical entity.
-        required: true
-        minimum_value: 0.0
-        maximum_value: 1.0
 
 
   FullRebuildRequest:
