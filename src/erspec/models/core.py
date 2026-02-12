@@ -141,7 +141,7 @@ Each cluster has a unique clusterId.
 
 A cluster reference is used to report the association between an entity mention and a cluster 
 of equivalence."""
-    cluster_id: str = Field(default=..., description="""The identifier of the cluster/canonical entity that is considered equivalent to the
+    cluster_id: CanonicalEntity = Field(default=..., description="""The identifier of the cluster/canonical entity that is considered equivalent to the
 subject entity mention that an `EntityMentionResolutionResponse` refers to.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['ClusterReference']} })
     confidence_score: float = Field(default=..., description="""A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention

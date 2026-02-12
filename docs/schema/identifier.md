@@ -17,8 +17,8 @@ Alias: identifier
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [EntityMention](EntityMention.md) | An entity mention is a representation of a real-world entity, as provided by ... |  no  |
 | [CanonicalEntity](CanonicalEntity.md) | A logical identity construct providing a stable identity anchor |  no  |
+| [EntityMention](EntityMention.md) | An entity mention is a representation of a real-world entity, as provided by ... |  no  |
 
 
 
