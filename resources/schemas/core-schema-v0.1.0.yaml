@@ -54,6 +54,19 @@ enums:
 
 classes:
 
+  CanonicalEntity:
+    description: |
+      A logical identity construct providing a stable identity anchor.
+      Represents a cluster of equivalent entity mentions.
+    attributes:
+      identifier:
+        required: true
+        description: Unique identifier for the canonical entity.
+      equivalent_to:
+        range: EntityMentionIdentifier
+        multivalued: true
+        description: Entity mentions that have been resolved to this canonical entity.
+
   EntityMention:
     description: |
       An entity mention is a representation of a real-world entity, as provided by the ERS.
