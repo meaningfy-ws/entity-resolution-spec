@@ -31,6 +31,42 @@ install:
 	@ poetry sync
 
 
+## Quality commands
+#
+
+PYLINT_SOURCE_PATHS = ./src ./test
+
+lint:
+	@ echo -e "$(BUILD_PRINT)$(ICON_PROGRESS) Running Pylint checks$(END_BUILD_PRINT)"
+	@ poetry run pylint --rcfile=.pylintrc $(PYLINT_SOURCE_PATHS)
+	@ echo -e "$(BUILD_PRINT)$(ICON_DONE) Pylint checks completed$(END_BUILD_PRINT)"
+
+lint-report:
+	@ echo -e "$(BUILD_PRINT)$(ICON_PROGRESS) Running Pylint and generating report$(END_BUILD_PRINT)"
+	@ poetry run pylint --rcfile=.pylintrc --recursive=y $(PYLINT_SOURCE_PATHS) | tail -n 3 | sed 's/^Your code/Pylint: Your code/' > pylint_report.txt || true
+	@ echo -e "$(BUILD_PRINT)$(ICON_DONE) Pylint report generated in pylint_report.txt$(END_BUILD_PRINT)"
+
+lint-full-report:
+	@ echo -e "$(BUILD_PRINT)$(ICON_PROGRESS) Running full Pylint and generating report$(END_BUILD_PRINT)"
+	@ poetry run pylint --rcfile=.pylintrc $(PYLINT_SOURCE_PATHS) | sed 's/^Your code/Pylint: Your code/' > pylint_report.txt || true
+	@ echo -e "$(BUILD_PRINT)$(ICON_DONE) Full Pylint report generated in pylint_report.txt$(END_BUILD_PRINT)"
+
+
+## Test commands
+#
+
+test:
+	@ echo -e "$(BUILD_PRINT)$(ICON_PROGRESS) Running tests$(END_BUILD_PRINT)"
+	@ poetry run pytest test/ \
+		--cov=ere \
+		--cov-report=term \
+		--cov-report=term-missing:skip-covered \
+		--cov-report=xml:coverage.xml \
+		-v \
+		$(PYTEST_ARGS)
+	@ echo -e "$(BUILD_PRINT)$(ICON_DONE) Tests completed$(END_BUILD_PRINT)"
+
+
 ## Build commands
 #
 
@@ -39,7 +75,7 @@ all: $(PYTHON_MODEL_PATH) $(JSON_SCHEMA_PATH) $(MODEL_DOCS_README)
 generate-models: $(PYTHON_MODEL_PATH) $(JSON_SCHEMA_PATH)
 generate-doc: $(MODEL_DOCS_README)
 
-.PHONY: all generate-models generate-doc clean clean-doc clean-models install install-dev check-uv
+.PHONY: all generate-models generate-doc clean clean-doc clean-models install lint lint-report lint-full-report test
 
 
 $(PYTHON_MODEL_PATH): $(LINKML_MODEL_PATH)
