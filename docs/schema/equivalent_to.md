@@ -22,7 +22,7 @@ Alias: equivalent_to
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [CanonicalEntity](CanonicalEntity.md) | A logical identity construct providing a stable identity anchor |  no  |
+| [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md) | A logical identity construct providing a stable identity anchor |  no  |
 
 
 
@@ -34,6 +34,8 @@ Alias: equivalent_to
 * Range: [EntityMentionIdentifier](EntityMentionIdentifier.md)
 
 * Multivalued: True
+
+* Required: True
 
 
 
@@ -72,10 +74,11 @@ description: Entity mentions that have been resolved to this canonical entity.
 from_schema: https://data.europa.eu/ers/schema/ere
 rank: 1000
 alias: equivalent_to
-owner: CanonicalEntity
+owner: CanonicalEntityIdentifier
 domain_of:
-- CanonicalEntity
+- CanonicalEntityIdentifier
 range: EntityMentionIdentifier
+required: true
 multivalued: true
 
 ```

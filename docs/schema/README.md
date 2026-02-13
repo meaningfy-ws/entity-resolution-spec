@@ -13,7 +13,7 @@ Name: ereServiceSchema
 | Class | Description |
 | --- | --- |
 | [AuditLog](AuditLog.md) | Audit trail entry for curation actions |
-| [CanonicalEntity](CanonicalEntity.md) | A logical identity construct providing a stable identity anchor |
+| [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md) | A logical identity construct providing a stable identity anchor |
 | [ClusterReference](ClusterReference.md) | A reference to a cluster to which an entity is deemed to belong, with an asso... |
 | [Decision](Decision.md) | Aggregate root representing a resolution decision requiring curation |
 | [EntityMention](EntityMention.md) | An entity mention is a representation of a real-world entity, as provided by ... |

@@ -17,8 +17,8 @@ Alias: created_at
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Decision](Decision.md) | Aggregate root representing a resolution decision requiring curation |  no  |
 | [AuditLog](AuditLog.md) | Audit trail entry for curation actions |  no  |
+| [Decision](Decision.md) | Aggregate root representing a resolution decision requiring curation |  no  |
 
 
 

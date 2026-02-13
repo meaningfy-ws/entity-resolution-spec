@@ -125,7 +125,7 @@ attributes:
       '
     from_schema: https://data.europa.eu/ers/schema/ers
     domain_of:
-    - CanonicalEntity
+    - CanonicalEntityIdentifier
     - EntityMention
     range: EntityMentionIdentifier
     required: true
@@ -185,7 +185,7 @@ attributes:
     alias: identifier
     owner: EntityMention
     domain_of:
-    - CanonicalEntity
+    - CanonicalEntityIdentifier
     - EntityMention
     range: EntityMentionIdentifier
     required: true

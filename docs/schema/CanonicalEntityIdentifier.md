@@ -1,6 +1,6 @@
 
 
-# Class: CanonicalEntity 
+# Class: CanonicalEntityIdentifier 
 
 
 _A logical identity construct providing a stable identity anchor._
@@ -13,7 +13,7 @@ __
 
 
 
-URI: [ere:CanonicalEntity](https://data.europa.eu/ers/schema/ere/CanonicalEntity)
+URI: [ere:CanonicalEntityIdentifier](https://data.europa.eu/ers/schema/ere/CanonicalEntityIdentifier)
 
 
 
@@ -21,20 +21,20 @@ URI: [ere:CanonicalEntity](https://data.europa.eu/ers/schema/ere/CanonicalEntity
 
 ```mermaid
  classDiagram
-    class CanonicalEntity
-    click CanonicalEntity href "../CanonicalEntity/"
-      CanonicalEntity : equivalent_to
+    class CanonicalEntityIdentifier
+    click CanonicalEntityIdentifier href "../CanonicalEntityIdentifier/"
+      CanonicalEntityIdentifier : equivalent_to
         
           
     
         
         
-        CanonicalEntity --> "*" EntityMentionIdentifier : equivalent_to
+        CanonicalEntityIdentifier --> "1..*" EntityMentionIdentifier : equivalent_to
         click EntityMentionIdentifier href "../EntityMentionIdentifier/"
     
 
         
-      CanonicalEntity : identifier
+      CanonicalEntityIdentifier : identifier
         
       
 ```
@@ -50,7 +50,7 @@ URI: [ere:CanonicalEntity](https://data.europa.eu/ers/schema/ere/CanonicalEntity
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [identifier](identifier.md) | 1 <br/> [String](String.md) | Unique identifier for the canonical entity | direct |
-| [equivalent_to](equivalent_to.md) | * <br/> [EntityMentionIdentifier](EntityMentionIdentifier.md) | Entity mentions that have been resolved to this canonical entity | direct |
+| [equivalent_to](equivalent_to.md) | 1..* <br/> [EntityMentionIdentifier](EntityMentionIdentifier.md) | Entity mentions that have been resolved to this canonical entity | direct |
 
 
 
@@ -60,7 +60,7 @@ URI: [ere:CanonicalEntity](https://data.europa.eu/ers/schema/ere/CanonicalEntity
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [ClusterReference](ClusterReference.md) | [cluster_id](cluster_id.md) | range | [CanonicalEntity](CanonicalEntity.md) |
+| [ClusterReference](ClusterReference.md) | [cluster_id](cluster_id.md) | range | [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md) |
 
 
 
@@ -87,8 +87,8 @@ URI: [ere:CanonicalEntity](https://data.europa.eu/ers/schema/ere/CanonicalEntity
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | ere:CanonicalEntity |
-| native | ere:CanonicalEntity |
+| self | ere:CanonicalEntityIdentifier |
+| native | ere:CanonicalEntityIdentifier |
 
 
 
@@ -103,7 +103,7 @@ URI: [ere:CanonicalEntity](https://data.europa.eu/ers/schema/ere/CanonicalEntity
 
 <details>
 ```yaml
-name: CanonicalEntity
+name: CanonicalEntityIdentifier
 description: 'A logical identity construct providing a stable identity anchor.
 
   Represents a cluster of equivalent entity mentions.
@@ -117,7 +117,7 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
-    - CanonicalEntity
+    - CanonicalEntityIdentifier
     - EntityMention
     required: true
   equivalent_to:
@@ -126,8 +126,9 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     domain_of:
-    - CanonicalEntity
+    - CanonicalEntityIdentifier
     range: EntityMentionIdentifier
+    required: true
     multivalued: true
 
 ```
@@ -137,7 +138,7 @@ attributes:
 
 <details>
 ```yaml
-name: CanonicalEntity
+name: CanonicalEntityIdentifier
 description: 'A logical identity construct providing a stable identity anchor.
 
   Represents a cluster of equivalent entity mentions.
@@ -151,9 +152,9 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     alias: identifier
-    owner: CanonicalEntity
+    owner: CanonicalEntityIdentifier
     domain_of:
-    - CanonicalEntity
+    - CanonicalEntityIdentifier
     - EntityMention
     range: string
     required: true
@@ -163,10 +164,11 @@ attributes:
     from_schema: https://data.europa.eu/ers/schema/ers
     rank: 1000
     alias: equivalent_to
-    owner: CanonicalEntity
+    owner: CanonicalEntityIdentifier
     domain_of:
-    - CanonicalEntity
+    - CanonicalEntityIdentifier
     range: EntityMentionIdentifier
+    required: true
     multivalued: true
 
 ```

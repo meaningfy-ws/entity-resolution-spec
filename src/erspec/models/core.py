@@ -88,18 +88,18 @@ class AuditAction(str, Enum):
 
 
 
-class CanonicalEntity(PydanticModel):
+class CanonicalEntityIdentifier(PydanticModel):
     """A logical identity construct providing a stable identity anchor.
 Represents a cluster of equivalent entity mentions."""
-    identifier: str = Field(default=..., description="""Unique identifier for the canonical entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CanonicalEntity', 'EntityMention']} })
-    equivalent_to: Optional[list[EntityMentionIdentifier]] = Field(default=[], description="""Entity mentions that have been resolved to this canonical entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CanonicalEntity']} })
+    identifier: str = Field(default=..., description="""Unique identifier for the canonical entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CanonicalEntityIdentifier', 'EntityMention']} })
+    equivalent_to: list[EntityMentionIdentifier] = Field(default=..., description="""Entity mentions that have been resolved to this canonical entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CanonicalEntityIdentifier']} })
 
 
 class EntityMention(PydanticModel):
     """An entity mention is a representation of a real-world entity, as provided by the ERS.
 It contains the entity data, along with metadata like type and format."""
     identifier: EntityMentionIdentifier = Field(default=..., description="""The identifier (with the ERS-derived components) of the entity mention.
-""", json_schema_extra = { "linkml_meta": {'domain_of': ['CanonicalEntity', 'EntityMention']} })
+""", json_schema_extra = { "linkml_meta": {'domain_of': ['CanonicalEntityIdentifier', 'EntityMention']} })
     content_type: str = Field(default=..., description="""A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EntityMention']} })
     content: str = Field(default=..., description="""A code string representing the entity mention details (eg, RDF or XML description).
@@ -141,7 +141,7 @@ Each cluster has a unique clusterId.
 
 A cluster reference is used to report the association between an entity mention and a cluster 
 of equivalence."""
-    cluster_id: CanonicalEntity = Field(default=..., description="""The identifier of the cluster/canonical entity that is considered equivalent to the
+    cluster_id: CanonicalEntityIdentifier = Field(default=..., description="""The identifier of the cluster/canonical entity that is considered equivalent to the
 subject entity mention that an `EntityMentionResolutionResponse` refers to.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['ClusterReference']} })
     confidence_score: float = Field(default=..., description="""A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention

@@ -65,7 +65,7 @@ URI: [ere:EntityMentionIdentifier](https://data.europa.eu/ers/schema/ere/EntityM
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
 | [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | [entity_mention_id](entity_mention_id.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
-| [CanonicalEntity](CanonicalEntity.md) | [equivalent_to](equivalent_to.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
+| [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md) | [equivalent_to](equivalent_to.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
 | [EntityMention](EntityMention.md) | [identifier](identifier.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
 | [Decision](Decision.md) | [about_entity_mention](about_entity_mention.md) | range | [EntityMentionIdentifier](EntityMentionIdentifier.md) |
 

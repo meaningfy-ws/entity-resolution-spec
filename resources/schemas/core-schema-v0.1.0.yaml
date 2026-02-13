@@ -54,7 +54,7 @@ enums:
 
 classes:
 
-  CanonicalEntity:
+  CanonicalEntityIdentifier:
     description: |
       A logical identity construct providing a stable identity anchor.
       Represents a cluster of equivalent entity mentions.
@@ -66,6 +66,7 @@ classes:
         range: EntityMentionIdentifier
         multivalued: true
         description: Entity mentions that have been resolved to this canonical entity.
+        required: true
 
   EntityMention:
     description: |
@@ -134,7 +135,7 @@ classes:
       of equivalence.
     attributes:
       cluster_id:
-        range: CanonicalEntity
+        range: CanonicalEntityIdentifier
         description: |
           The identifier of the cluster/canonical entity that is considered equivalent to the
           subject entity mention that an `EntityMentionResolutionResponse` refers to.
