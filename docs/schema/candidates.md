@@ -17,8 +17,8 @@ Alias: candidates
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | An entity resolution response returned by the ERE |  no  |
 | [Decision](Decision.md) | Aggregate root representing a resolution decision requiring curation |  no  |
+| [EntityMentionResolutionResponse](EntityMentionResolutionResponse.md) | An entity resolution response returned by the ERE |  no  |
 
 
 

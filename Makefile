@@ -27,6 +27,7 @@ MODELS_DIR     = src/erspec/models
 # Schema identifiers
 ERE_SCHEMA_NAME    = ere-service-schema
 CORE_SCHEMA_NAME   = core-schema
+JSON_SCHEMA_NAME   = er-schema
 SCHEMA_VERSION     = 0.1.0
 
 # Source schemas (core is imported by ere, so it is a dependency)
@@ -37,7 +38,7 @@ ALL_SCHEMA_SOURCES = $(ERE_SCHEMA_PATH) $(CORE_SCHEMA_PATH)
 # Generated artefacts
 PYTHON_ERE_MODEL   = $(MODELS_DIR)/ere.py
 PYTHON_CORE_MODEL  = $(MODELS_DIR)/core.py
-JSON_SCHEMA_PATH   = $(SCHEMAS_DIR)/$(ERE_SCHEMA_NAME)-v$(SCHEMA_VERSION).json
+JSON_SCHEMA_PATH   = $(SCHEMAS_DIR)/$(JSON_SCHEMA_NAME)-v$(SCHEMA_VERSION).json
 
 MODEL_DOCS_DIR     = docs/schema
 MODEL_DOCS_README  = $(MODEL_DOCS_DIR)/README.md
