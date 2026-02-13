@@ -86,8 +86,8 @@
       "description": "A reference to a cluster to which an entity is deemed to belong, with an associated confidence score.\n\nA cluster is a set of entity mentions that have been determined to refer to the same real-world entity.\nEach cluster has a unique clusterId.\n\nA cluster reference is used to report the association between an entity mention and a cluster \nof equivalence.",
       "properties": {
         "cluster_id": {
-          "$ref": "#/$defs/CanonicalEntityIdentifier",
-          "description": "The identifier of the cluster/canonical entity that is considered equivalent to the\nsubject entity mention that an `EntityMentionResolutionResponse` refers to.\n"
+          "description": "The identifier of the cluster/canonical entity that is considered equivalent to the\nsubject entity mention that an `EntityMentionResolutionResponse` refers to.\n",
+          "type": "string"
         },
         "confidence_score": {
           "description": "A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention\nand the target canonical entity.\n",

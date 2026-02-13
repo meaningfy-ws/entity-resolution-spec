@@ -35,15 +35,6 @@ URI: [ere:ClusterReference](https://data.europa.eu/ers/schema/ere/ClusterReferen
     click ClusterReference href "../ClusterReference/"
       ClusterReference : cluster_id
         
-          
-    
-        
-        
-        ClusterReference --> "1" CanonicalEntityIdentifier : cluster_id
-        click CanonicalEntityIdentifier href "../CanonicalEntityIdentifier/"
-    
-
-        
       ClusterReference : confidence_score
         
       
@@ -59,7 +50,7 @@ URI: [ere:ClusterReference](https://data.europa.eu/ers/schema/ere/ClusterReferen
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [cluster_id](cluster_id.md) | 1 <br/> [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md) | The identifier of the cluster/canonical entity that is considered equivalent ... | direct |
+| [cluster_id](cluster_id.md) | 1 <br/> [String](String.md) | The identifier of the cluster/canonical entity that is considered equivalent ... | direct |
 | [confidence_score](confidence_score.md) | 1 <br/> [Float](Float.md) | A 0-1 value of how confident the ERE is about the equivalence between the sub... | direct |
 
 
@@ -135,7 +126,6 @@ attributes:
     rank: 1000
     domain_of:
     - ClusterReference
-    range: CanonicalEntityIdentifier
     required: true
   confidence_score:
     name: confidence_score
@@ -183,7 +173,7 @@ attributes:
     owner: ClusterReference
     domain_of:
     - ClusterReference
-    range: CanonicalEntityIdentifier
+    range: string
     required: true
   confidence_score:
     name: confidence_score

@@ -135,7 +135,6 @@ classes:
       of equivalence.
     attributes:
       cluster_id:
-        range: CanonicalEntityIdentifier
         description: |
           The identifier of the cluster/canonical entity that is considered equivalent to the
           subject entity mention that an `EntityMentionResolutionResponse` refers to.

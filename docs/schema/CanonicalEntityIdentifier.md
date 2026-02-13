@@ -56,13 +56,6 @@ URI: [ere:CanonicalEntityIdentifier](https://data.europa.eu/ers/schema/ere/Canon
 
 
 
-## Usages
-
-| used by | used in | type | used |
-| ---  | --- | --- | --- |
-| [ClusterReference](ClusterReference.md) | [cluster_id](cluster_id.md) | range | [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md) |
-
-
 
 
 

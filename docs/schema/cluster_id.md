@@ -35,7 +35,7 @@ Alias: cluster_id
 
 ## Properties
 
-* Range: [CanonicalEntityIdentifier](CanonicalEntityIdentifier.md)
+* Range: [String](String.md)
 
 * Required: True
 
@@ -84,7 +84,7 @@ alias: cluster_id
 owner: ClusterReference
 domain_of:
 - ClusterReference
-range: CanonicalEntityIdentifier
+range: string
 required: true
 
 ```
