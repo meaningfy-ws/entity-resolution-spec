@@ -1,4 +1,10 @@
 # Entity Resolution Specifications
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=bugs)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+
 Formal software contract, shared data models, sample messages, and compliance tests required for integrating new Entity Resolution Engines (EREs) into the system.
 
 > Note: Active development continues in the OP-TED repository: https://github.com/OP-TED/entity-resolution-spec
@@ -20,10 +26,14 @@ make generate_docs
 
 ## Make targets overview
 
-- install: user dependencies
-- install-dev: dev dependencies (tests, lint, LinkML codegen)
-- generate_models: regenerate Pydantic models from LinkML
-- generate_docs: regenerate documentation
+- `install`: install dependencies via Poetry
+- `all`: generate all models, schemas, and documentation
+- `generate-models`: regenerate Pydantic models and JSON Schema from LinkML
+- `generate-doc`: regenerate documentation
+- `lint`: run Pylint checks
+- `lint-report`: generate Pylint report (for CI)
+- `test`: run tests with coverage (no tests yet)
+- `clean`: remove all generated artifacts
 
 ## Installation
 
