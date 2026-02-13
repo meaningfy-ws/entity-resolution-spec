@@ -132,11 +132,13 @@ jobs:
         uses: codecov/codecov-action@v5
 
       - name: SonarCloud Scan
-        if: env.SONAR_TOKEN != ''
+        if: env.SONAR_TOKEN != '' && vars.SONAR_PROJECT_KEY != ''
         uses: SonarSource/sonarqube-scan-action@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: >
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300

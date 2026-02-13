@@ -1,9 +1,9 @@
 # Entity Resolution Specifications
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=OP-TED_entity-resolution-spec&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=OP-TED_entity-resolution-spec)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=OP-TED_entity-resolution-spec&metric=bugs)](https://sonarcloud.io/summary/new_code?id=OP-TED_entity-resolution-spec)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=OP-TED_entity-resolution-spec&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=OP-TED_entity-resolution-spec)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=OP-TED_entity-resolution-spec&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=OP-TED_entity-resolution-spec)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=bugs)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_entity-resolution-spec&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_entity-resolution-spec)
 
 Formal software contract, shared data models, sample messages, and compliance tests required for integrating new Entity Resolution Engines (EREs) into the system.
 
