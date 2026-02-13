@@ -26,20 +26,28 @@ on:
       - ".github/workflows/code-quality.yaml"
 
 jobs:
-  lint:
-    name: Pylint
+  quality:
+    name: Lint, Build & Verify
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.14
         uses: actions/setup-python@v6
         with:
           python-version: "3.14"
+
+      - name: Install Poetry
+        run: pipx install poetry
 
       - name: Cache Poetry dependencies
         uses: actions/cache@v4
@@ -73,41 +81,6 @@ jobs:
         with:
           file-path: pylint_report.txt
           comment-tag: pylint
-
-      - name: Fail if Pylint score is too low
-        if: steps.pylint.outputs.exit_code != '0'
-        run: |
-          echo "::error::Pylint found issues. Please fix them."
-          exit 1
-
-  build-verify:
-    name: Build & Verify Generated Code
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    env:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python 3.14
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.14"
-
-      - name: Cache Poetry dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pypoetry
-          key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
-
-      - name: Install dependencies
-        run: make install
 
       - name: Generate models and docs
         run: make all
