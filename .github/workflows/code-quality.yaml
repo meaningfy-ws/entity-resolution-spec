@@ -82,8 +82,8 @@ jobs:
           file-path: pylint_report.txt
           comment-tag: pylint
 
-      - name: Generate models and docs
-        run: make all
+      - name: Generate models
+        run: make generate-models
 
       - name: Verify generated code is up to date
         id: verify_generated_code
