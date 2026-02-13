@@ -43,7 +43,7 @@ lint:
 
 lint-report:
 	@ echo -e "$(BUILD_PRINT)$(ICON_PROGRESS) Running Pylint and generating report$(END_BUILD_PRINT)"
-	@ poetry run pylint --rcfile=.pylintrc --recursive=y $(PYLINT_SOURCE_PATHS) | tail -n 3 | sed 's/^Your code/Pylint: Your code/' > pylint_report.txt || true
+	@ poetry run pylint --rcfile=.pylintrc --recursive=y $(PYLINT_SOURCE_PATHS) | grep -E "^Your code" | sed 's/^Your code/Pylint: Your code/' > pylint_report.txt || true
 	@ echo -e "$(BUILD_PRINT)$(ICON_DONE) Pylint report generated in pylint_report.txt$(END_BUILD_PRINT)"
 
 lint-full-report:
