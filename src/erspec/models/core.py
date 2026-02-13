@@ -156,7 +156,7 @@ Captures the state and outcome of entity mention resolution."""
     about_entity_mention: EntityMentionIdentifier = Field(default=..., description="""Reference to the entity mention being resolved""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision']} })
     status: DecisionStatus = Field(default=..., description="""Current status in the curation workflow""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision']} })
     action: Optional[DecisionAction] = Field(default=None, description="""Action taken by curator""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision', 'AuditLog']} })
-    accepted_candidate: Optional[ClusterReference] = Field(default=None, description="""The cluster reference accepted for this entity mention""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision']} })
+    accepted_candidate: ClusterReference = Field(default=..., description="""The cluster reference accepted for this entity mention""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision']} })
     candidates: list[ClusterReference] = Field(default=..., description="""All cluster references proposed by ERE, ordered by confidence""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision', 'EntityMentionResolutionResponse']} })
     created_at: datetime  = Field(default=..., description="""Timestamp when the decision was created""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision', 'AuditLog']} })
     updated_at: Optional[datetime ] = Field(default=None, description="""Timestamp when the decision was last updated""", json_schema_extra = { "linkml_meta": {'domain_of': ['Decision']} })

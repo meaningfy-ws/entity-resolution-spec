@@ -33,6 +33,8 @@ Alias: accepted_candidate
 
 * Range: [ClusterReference](ClusterReference.md)
 
+* Required: True
+
 
 
 
@@ -74,6 +76,7 @@ owner: Decision
 domain_of:
 - Decision
 range: ClusterReference
+required: true
 
 ```
 </details>

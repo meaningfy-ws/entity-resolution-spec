@@ -40,7 +40,7 @@ URI: [ere:Decision](https://data.europa.eu/ers/schema/ere/Decision)
     
         
         
-        Decision --> "0..1" ClusterReference : accepted_candidate
+        Decision --> "1" ClusterReference : accepted_candidate
         click ClusterReference href "../ClusterReference/"
     
 
@@ -101,7 +101,7 @@ URI: [ere:Decision](https://data.europa.eu/ers/schema/ere/Decision)
 | [about_entity_mention](about_entity_mention.md) | 1 <br/> [EntityMentionIdentifier](EntityMentionIdentifier.md) | Reference to the entity mention being resolved | direct |
 | [status](status.md) | 1 <br/> [DecisionStatus](DecisionStatus.md) | Current status in the curation workflow | direct |
 | [action](action.md) | 0..1 <br/> [DecisionAction](DecisionAction.md) | Action taken by curator | direct |
-| [accepted_candidate](accepted_candidate.md) | 0..1 <br/> [ClusterReference](ClusterReference.md) | The cluster reference accepted for this entity mention | direct |
+| [accepted_candidate](accepted_candidate.md) | 1 <br/> [ClusterReference](ClusterReference.md) | The cluster reference accepted for this entity mention | direct |
 | [candidates](candidates.md) | 1..* <br/> [ClusterReference](ClusterReference.md) | All cluster references proposed by ERE, ordered by confidence | direct |
 | [created_at](created_at.md) | 1 <br/> [Datetime](Datetime.md) | Timestamp when the decision was created | direct |
 | [updated_at](updated_at.md) | 0..1 <br/> [Datetime](Datetime.md) | Timestamp when the decision was last updated | direct |
@@ -202,6 +202,7 @@ attributes:
     domain_of:
     - Decision
     range: ClusterReference
+    required: true
   candidates:
     name: candidates
     description: All cluster references proposed by ERE, ordered by confidence
@@ -301,6 +302,7 @@ attributes:
     domain_of:
     - Decision
     range: ClusterReference
+    required: true
   candidates:
     name: candidates
     description: All cluster references proposed by ERE, ordered by confidence

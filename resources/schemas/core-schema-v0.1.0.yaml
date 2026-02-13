@@ -170,6 +170,7 @@ classes:
       accepted_candidate:
         range: ClusterReference
         description: The cluster reference accepted for this entity mention
+        required: true
       candidates:
         range: ClusterReference
         multivalued: true

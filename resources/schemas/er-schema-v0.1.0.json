@@ -112,14 +112,7 @@
           "description": "Reference to the entity mention being resolved"
         },
         "accepted_candidate": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ClusterReference"
-            },
-            {
-              "type": "null"
-            }
-          ],
+          "$ref": "#/$defs/ClusterReference",
           "description": "The cluster reference accepted for this entity mention"
         },
         "action": {
@@ -159,6 +152,7 @@
         "id",
         "about_entity_mention",
         "status",
+        "accepted_candidate",
         "candidates",
         "created_at"
       ],
