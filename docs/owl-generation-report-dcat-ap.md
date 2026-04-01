@@ -11,63 +11,87 @@
 
 ## 1. Executive Summary
 
-This DCAT-AP LinkML schema is significantly more mature in its use of LinkML
-features than the ERS/ERE schemas analysed in the companion report. It makes
-good use of `class_uri`, `slot_uri`, schema-level `slots` with `slot_usage`,
-`enum_uri`, and `meaning` on permissible values. However, as a machine-generated
-schema (SHACL-to-LinkML conversion), it carries systematic issues: all
-properties are minted under a local `dcatap_linkml:` namespace and only *mapped*
-to their canonical DCAT/Dublin Core URIs via `skos:exactMatch`, rather than
-*being* those URIs. The generated OWL is therefore **a parallel ontology that
-describes DCAT-AP from a distance**, not a faithful OWL rendering of DCAT-AP
-itself.
+This report analyses a LinkML representation of DCAT-AP 3.0.0 and the OWL
+ontology generated from it. The goal is to assess how well LinkML's OWL
+generation capabilities are exercised, what is lost or distorted in
+translation, and where the model or the generator fall short.
 
-The OWL output also suffers from the same verbosity issues as the ERS report
-(vacuous `minCardinality 0` axioms, un-consolidated cardinality), and reveals
-several deeper problems: `slot_uri` is declared in LinkML but **ignored by the
-OWL generator** in favour of auto-generated URIs, enum values with `meaning`
-URIs are modelled as classes instead of individuals, and the `any_of` union
-ranges produce convoluted OWL restrictions.
+The schema uses a wider range of LinkML features than many hand-authored
+schemas — notably `class_uri`, `slot_uri`, schema-level `slots` with
+`slot_usage`, `enum_uri`, and `meaning` on permissible values. However, the
+generated OWL reveals that several of these features are **not honoured by the
+OWL generator**: `slot_uri` is ignored for property IRIs, slots without an
+explicit range are misclassified as `owl:DatatypeProperty`, and enum values are
+modelled as classes rather than individuals.
+
+The result is a **parallel ontology** under the `dcatap_linkml:` namespace that
+*describes* DCAT-AP from a distance, rather than a faithful OWL rendering of
+DCAT-AP itself.
 
 ---
 
-## 2. Current State Assessment
+## 2. LinkML Feature Usage Inventory
 
-### 2.1 What the schema does well (compared to ERS)
+### 2.1 Features used in this schema
 
-| Feature | LinkML usage | OWL result |
-|---------|-------------|------------|
-| **`class_uri`** on all major classes | `Catalogue` -> `dcat:Catalog`, `Dataset` -> `dcat:Dataset`, etc. | `skos:exactMatch` annotations generated (e.g., `skos:exactMatch dcat:Catalog`) |
-| **`slot_uri`** on all slots | `title` -> `dcterms:title`, `publisher` -> `dcterms:publisher`, etc. | **Not used in OWL property IRIs** — see issue 3.1 |
-| **Schema-level `slots`** with `slot_usage` | ~60 slots defined at schema level, specialised per class | No ambiguous attribute warnings; clean property definitions |
-| **`enum_uri`** on enums | `DatasetThemes` -> `http://publications.europa.eu/resource/authority/data-theme` | Used as parent class IRI for enum values in OWL |
-| **`meaning`** on enum values | `AGRI` -> `http://publications.europa.eu/resource/authority/data-theme/AGRI` | Values get their canonical EU authority URIs in OWL |
-| **Custom types** (`duration`, `hexBinary`, `nonNegativeInteger`) | Defined with `uri`, `pattern`, `conforms_to` | OWL datatype restrictions with `xsd:pattern` generated |
-| **`any_of` for union ranges** | `primary_topic` range is union of Catalogue, Dataset, DatasetSeries, DataService | `owl:intersectionOf` + `owl:unionOf` generated (see issue 3.3) |
-| **`is_a` hierarchy** | `SupportiveEntity` as base for ~15 supportive classes | `rdfs:subClassOf` chain |
-| **`recommended`** flag on slots | Used throughout (e.g., `theme`, `contact_point`) | Not reflected in OWL (no OWL equivalent) |
-| **License and source metadata** | `license: CC-BY 4.0`, `source:` URL | `dcterms:license` and `dcterms:source` on ontology IRI |
+The following table catalogues every OWL-relevant LinkML feature that this
+schema exercises, along with how it translates (or fails to translate) into OWL:
 
-### 2.2 What the generator produces
+| LinkML feature | How this schema uses it | OWL result | Assessment |
+|----------------|------------------------|------------|------------|
+| **`class_uri`** | Declared on all major classes (e.g., `Catalogue` -> `dcat:Catalog`, `Dataset` -> `dcat:Dataset`, `Agent` -> `foaf:Agent`) | `skos:exactMatch` annotation generated (e.g., `dcatap_linkml:Catalogue skos:exactMatch dcat:Catalog`) | Partially effective. The class IRI remains `dcatap_linkml:Catalogue`, not `dcat:Catalog`. The mapping is present but the identity is not reused. |
+| **`slot_uri`** | Declared on all ~60 slots (e.g., `title` -> `dcterms:title`, `publisher` -> `dcterms:publisher`) | **Ignored.** Properties are minted under `dcatap_linkml:` namespace. No `skos:exactMatch` or any mapping emitted. | Broken. This is the single biggest fidelity issue — see section 3.1. |
+| **Schema-level `slots`** | ~60 slots defined at schema level | Clean global property declarations; no ambiguous attribute warnings | Correct. This is the right approach and avoids the problems seen in attribute-only schemas. |
+| **`slot_usage`** | Every class specialises slot descriptions, ranges, cardinality, and `required` per class | Class-level `owl:Restriction` axioms with correct ranges and cardinalities | Correct. Slot usage drives the local restrictions as expected. |
+| **`is_a`** | `SupportiveEntity` as base for ~15 supportive classes; no deeper hierarchies | `rdfs:subClassOf` chain | Correct, but `SupportiveEntity` itself has no standard counterpart (see section 3.5). |
+| **`enum_uri`** | `DatasetThemes` -> `http://publications.europa.eu/resource/authority/data-theme`; `TopLevelMediaTypes` -> `iana:top-level-media-types` | Used as the parent class IRI for enum values | Correct. Values are minted under the authority table namespace. |
+| **`meaning`** on enum values | All 14 `DatasetThemes` values have `meaning` URIs from the EU Publications Office authority table | Enum values use their `meaning` URI as their OWL IRI (e.g., `.../data-theme/AGRI`) | Partially correct. The IRIs are right, but values are modelled as `owl:Class` instead of `owl:NamedIndividual` — see section 3.4. |
+| **Custom types** | `duration` (xsd:duration), `hexBinary` (xsd:hexBinary), `nonNegativeInteger` (xsd:nonNegativeInteger) — each with `uri`, `pattern`, `conforms_to` | `owl:equivalentClass` with `xsd:pattern` facet restrictions | Correct. Pattern-based datatype restrictions are faithfully rendered. |
+| **`any_of`** for union ranges | `CatalogueRecord.primary_topic` range is union of Catalogue, Dataset, DatasetSeries, DataService | `owl:intersectionOf` wrapping `owl:unionOf` with `linkml:Any` | Semantically noisy — the intersection with `Any` (= `owl:Thing`) is a no-op. See section 3.3. |
+| **`required`** | Used throughout on mandatory slots | `owl:minCardinality 1` | Correct. |
+| **`multivalued`** | Used on most slots to indicate repeatable properties | Absence of `owl:maxCardinality` on multivalued slots | Correct (no upper bound emitted). |
+| **`recommended`** | Used on many slots (e.g., `theme`, `contact_point`, `modification_date`) | **Not reflected in OWL.** No OWL equivalent exists. | Expected limitation. OWL cannot express "recommended". SHACL (`sh:severity`) would be the natural target. |
+| **`inlined_as_list`** | Used pervasively on object-range slots | **No OWL effect.** This is a serialisation hint. | Correct (no OWL translation expected). |
+| **`description`** on classes | Present on all classes, pointing to DCAT-AP spec sections | `skos:definition` annotations | Correct. |
+| **`description`** on schema-level slots | All slots have placeholder text: "described in more detail within the class in which it is used" | 60+ identical `skos:definition` annotations — pure noise | Misleading. Placeholder descriptions pollute the OWL. |
+| **`description`** on slot_usage | Rich, per-class descriptions | **Not emitted** in OWL property declarations. Only the schema-level slot description appears. | Lost information. The per-class descriptions (which are the real documentation) do not make it into OWL. |
+| **`license`** and **`source`** | Schema-level metadata | `dcterms:license` and `dcterms:source` on ontology IRI | Correct. |
+| **`title`** | Schema-level metadata | `dcterms:title` on ontology IRI | Correct. |
+| **`see_also`** on enums | `DatasetThemes` has `see_also` pointing to EU authority table URL | **Not emitted** in OWL. No `rdfs:seeAlso`. | Lost information. |
+| **`todos`** | Schema-level notes on known limitations | Not emitted (expected — these are development notes) | Correct. |
 
-| Feature | Status |
-|---------|--------|
-| Class hierarchy | `rdfs:subClassOf` for `is_a` relationships |
-| Cardinality | Verbose: separate `minCardinality` / `maxCardinality` including vacuous `min 0` |
-| Range constraints | `owl:allValuesFrom` restrictions on each class |
-| External class mapping | `skos:exactMatch` from `class_uri` (e.g., `dcatap_linkml:Catalogue skos:exactMatch dcat:Catalog`) |
-| Enum values with `meaning` | Enum values use their `meaning` URI as their OWL IRI (good!) |
-| Enum values without `meaning` | Local IRI under `enum_uri#name` pattern (e.g., `iana:top-level-media-types#application`) |
-| Custom datatypes | `owl:equivalentClass` with `xsd:pattern` facet restrictions |
-| Property IRIs | **All under `dcatap_linkml:` namespace** — `slot_uri` is ignored |
-| Slot descriptions | Generic "described in more detail within the class" for global slots |
-| Ontology IRI | `https://w3id.org/nfdi-de/dcat-ap-linkml.owl.ttl` (with file extension) |
+### 2.2 Features NOT used in this schema
+
+The following OWL-relevant LinkML features are available but not exercised:
+
+| LinkML feature | What it would produce in OWL | Why it matters for DCAT-AP |
+|----------------|------------------------------|---------------------------|
+| **`defining_slots`** | `owl:equivalentClass` (intersection of superclass + slot restrictions) | Could define `Catalogue` as "a thing with `has_dataset` and `publisher`" — enabling OWL automated classification |
+| **`disjoint_with`** | `owl:disjointWith` axioms | `Dataset`, `DataService`, `Catalogue`, and `DatasetSeries` are clearly disjoint in DCAT-AP; nothing prevents a reasoner from merging them |
+| **`abstract`** | Covering axioms (`owl:equivalentClass [ owl:unionOf ... ]`) | `SupportiveEntity` is essentially abstract but is not declared as such |
+| **`mixin`** | GCI axioms or additional `rdfs:subClassOf` (depending on CLI flags) | Several DCAT-AP classes share patterns (e.g., Dataset and DatasetSeries share many slots) that could be captured as mixins |
+| **`identifier: true`** | `owl:hasKey` axioms (OWL 2) | No slot is marked as the identity key, even though `dcterms:identifier` is semantically a key |
+| **`exact_mappings`** / **`close_mappings`** / etc. | `skos:exactMatch`, `skos:closeMatch`, etc. on properties | Could compensate for `slot_uri` not being used: at minimum, properties would get `skos:exactMatch dcterms:title`, etc. |
+| **`implements: [owl:NamedIndividual]`** on enums | `owl:oneOf` over `owl:NamedIndividual` instances | Enum values (AGRI, ECON, etc.) should be individuals, not classes — see section 3.4 |
+| **`comments`** / **`notes`** | `rdfs:comment` or `skos:note` | Several classes have important caveats (e.g., temporal literal restrictions) that could be annotations |
+| **`deprecated`** / **`status`** | `owl:deprecated true` | Useful if any elements are being phased out |
+| **`structured_aliases`** | `skos:prefLabel` with language tags | DCAT-AP is an EU standard — multilingual labels in EN, FR, DE, etc. would be valuable |
+| **`classification_rules`** | `owl:equivalentClass` from conditional slot constraints | More expressive than `defining_slots` for complex type discrimination |
+| **`rules`** (preconditions/postconditions) | Limited OWL translation (SWRL planned) | Could formalise DCAT-AP validation rules (e.g., "if Dataset has no Distribution, it must have a landing_page") |
+| **`broad_mappings`** / **`narrow_mappings`** / **`related_mappings`** | `skos:broadMatch`, `skos:narrowMatch`, `skos:relatedMatch` | DCAT-AP sits in a family of profiles (GeoDCAT-AP, StatDCAT-AP) — cross-profile mappings would be useful |
+| **`union_of`** on classes | `owl:equivalentClass [ owl:unionOf ... ]` | Could formally declare that `dcat:Resource = Dataset ∪ DataService ∪ Catalogue ∪ DatasetSeries` |
+| **`tree_root`** | Serialisation entry point | `Dataset` or `Catalogue` would be natural roots |
+
+In total, this schema uses roughly **10 out of 25+** OWL-relevant LinkML
+features. Of those 10, two are broken or partially broken in the OWL output
+(`slot_uri`, `meaning` with default enum strategy). The remaining ~15 features
+are available and would meaningfully improve the generated OWL.
 
 ### 2.3 No generator warnings
 
-Unlike the ERS schemas, this schema produces **zero warnings** from the OWL
-generator. This is because all properties are defined as schema-level `slots`
-(not per-class `attributes`), so there are no ambiguity conflicts.
+Unlike attribute-only schemas, this schema produces **zero warnings** from the
+OWL generator. This is because all properties are defined as schema-level
+`slots` (not per-class `attributes`), so there are no ambiguity conflicts.
 
 ---
 
@@ -115,12 +139,12 @@ mapping to the canonical property URIs. This means:
 
 **Contrast with `class_uri`:** Classes *do* get a `skos:exactMatch` to their
 `class_uri` (e.g., `dcatap_linkml:Catalogue skos:exactMatch dcat:Catalog`).
-Properties do not get this treatment.
+Properties do not get this treatment — an asymmetry that appears unintentional.
 
 **Impact:** This is the single biggest reason the generated OWL is not a
-faithful representation of DCAT-AP. It may be a generator limitation (the
-`--use-native-uris` flag exists but defaults to `True`, which should use the
-`slot_uri` — this needs investigation).
+faithful representation of DCAT-AP. The `--use-native-uris` flag (defaults to
+`True`) should theoretically cause the generator to use `slot_uri` as the OWL
+property IRI — this needs investigation.
 
 ### 3.2 All global properties are `owl:DatatypeProperty`
 
@@ -154,6 +178,10 @@ schema-level `default_range: string`.
 This means the OWL output is technically in **OWL Full**, not OWL-DL, and most
 reasoners will either reject it or behave unpredictably.
 
+**Fix:** Add an explicit `range` to schema-level slots where the range is
+consistently a class across all usages (e.g., `publisher` always has range
+`Agent`).
+
 ### 3.3 `any_of` union ranges produce convoluted OWL
 
 **In the LinkML schema (`CatalogueRecord.primary_topic`):**
@@ -183,7 +211,8 @@ it adds unnecessary complexity to the OWL. The `any_of` union itself is
 correctly expressed, but the `Any` wrapper is noise.
 
 This is a known limitation noted in the schema's own `todos` — the `any_of`
-union is "not fully implemented in LinkML yet" (referencing issue #1813).
+union is "not fully implemented in LinkML yet" (referencing
+[linkml/linkml#1813](https://github.com/linkml/linkml/issues/1813)).
 
 ### 3.4 Enum values are modelled as classes, not individuals
 
@@ -198,6 +227,9 @@ union is "not fully implemented in LinkML yet" (referencing issue #1813).
 authority table publishes these as `skos:Concept` instances (individuals), not
 as classes. Modelling them as `owl:Class` means they cannot be used as instance
 data without OWL punning.
+
+The `meaning` URIs are correctly resolved (the OWL IRIs match the authority
+table), but the ontological status is wrong.
 
 **Fix:** Add `implements: [owl:NamedIndividual]` to the `DatasetThemes` and
 `TopLevelMediaTypes` enums so that values become `owl:NamedIndividual` with
@@ -220,9 +252,6 @@ DCAT-AP design decision.
 
 ## 4. Verbosity and Generator Flag Issues
 
-These are the same issues identified in the ERS report but amplified by the
-larger schema:
-
 ### 4.1 Vacuous `minCardinality 0` axioms
 
 The `Distribution` class alone has **~20 restrictions** of the form
@@ -244,26 +273,27 @@ Required single-valued slots generate separate `minCardinality 1` +
 
 All schema-level slots have the description "This slot is described in more
 detail within the class in which it is used." This produces 60+ identical
-`skos:definition` annotations in the OWL — pure noise. The `slot_usage`
-descriptions per class are richer but are not reflected in the OWL property
-declarations.
+`skos:definition` annotations in the OWL — pure noise. The richer `slot_usage`
+descriptions per class are not reflected in the OWL property declarations.
 
 ---
 
 ## 5. Limitations of the LinkML OWL Generator (DCAT-AP specific)
 
-Beyond the general limitations documented in the ERS report, the DCAT-AP schema
-reveals additional generator limitations:
+Beyond the general limitations of the OWL generator (open-world vs.
+closed-world mismatch, no SWRL rules, no native abstract classes — documented
+in the companion ERS report), the DCAT-AP schema reveals additional generator
+limitations:
 
 | Limitation | Impact on DCAT-AP |
 |-----------|-------------------|
 | **`slot_uri` not used for OWL property IRIs** | All ~60 properties use `dcatap_linkml:` instead of `dcterms:`, `dcat:`, `foaf:`, etc. The OWL is not interoperable with DCAT-AP data. |
-| **No `skos:exactMatch` generated for `slot_uri`** | Unlike `class_uri` (which generates `skos:exactMatch`), `slot_uri` produces nothing in the OWL output. |
+| **No `skos:exactMatch` generated for `slot_uri`** | Unlike `class_uri` (which generates `skos:exactMatch`), `slot_uri` produces nothing in the OWL output. Asymmetric treatment. |
 | **Default range determines property type** | Slots without explicit range at schema level become `DatatypeProperty` even when `slot_usage` gives them a class range — OWL-DL violation. |
 | **`recommended` flag has no OWL mapping** | DCAT-AP's mandatory/recommended/optional distinction is lost. SHACL (`sh:severity`) would be the natural target, not OWL. |
 | **`any_of` with `Any` produces intersectionOf noise** | Union ranges wrapped with `linkml:Any` add semantically empty `owl:intersectionOf` wrappers. |
-| **`inlined_as_list` has no OWL meaning** | Serialisation hints are ignored (correctly), but they add noise to the LinkML schema. |
-| **`see_also` on enums not in OWL** | `DatasetThemes.see_also` pointing to the EU authority table is not emitted as `rdfs:seeAlso`. |
+| **`see_also` on enums not emitted** | `DatasetThemes.see_also` pointing to the EU authority table is not emitted as `rdfs:seeAlso`. |
+| **`slot_usage` descriptions not in OWL** | Only the schema-level slot description appears on the OWL property. The per-class descriptions (which contain the real documentation) are lost. |
 
 ---
 
@@ -281,7 +311,8 @@ reveals additional generator limitations:
 | **Generator warnings** | 10 ambiguous attribute warnings | Zero warnings |
 | **OWL-DL compliance** | Likely compliant | Violated (DatatypeProperty with class ranges) |
 | **Interoperability** | Self-contained (by design) | Claims DCAT-AP alignment but properties are local |
-| **Verbosity** | High | Very high (~1769 lines for 30 classes) |
+| **Features used** | ~4 of 25+ | ~10 of 25+ |
+| **Verbosity** | High | Very high (~1769 lines for ~30 classes) |
 
 **Key insight:** The DCAT-AP schema uses more LinkML features correctly
 (slots, slot_usage, class_uri, slot_uri, enum_uri, meaning), but the OWL
@@ -334,7 +365,10 @@ If this schema is maintained locally (not just consumed as-is):
    misleading one).
 4. **Consider removing `SupportiveEntity`** or adding `class_uri: owl:Thing`
    to it, since it has no DCAT-AP equivalent.
-5. **Add `see_also`** at the schema level pointing to the DCAT-AP 3.0.0 spec.
+5. **Add `disjoint_with`** between the main DCAT-AP classes (Dataset,
+   DataService, Catalogue, DatasetSeries).
+6. **Add `exact_mappings`** on schema-level slots as a fallback mapping
+   mechanism until `slot_uri` is honoured by the generator.
 
 ### 7.4 Phase 4: Upstream engagement
 
@@ -352,20 +386,22 @@ The most impactful improvements require upstream changes:
 ## 8. Conclusion
 
 The DCAT-AP LinkML schema demonstrates that with proper use of `class_uri`,
-`slot_uri`, schema-level `slots`, and `slot_usage`, the LinkML model can be
+`slot_uri`, schema-level `slots`, and `slot_usage`, a LinkML model can be
 considerably richer than a naive attribute-only approach. It uses roughly
-**8-10 out of 20+** OWL-relevant LinkML features (compared to ~4 in the ERS
-schemas).
+**10 out of 25+** OWL-relevant LinkML features. Of the ~15 unused features,
+several would be directly valuable: `disjoint_with`, `defining_slots`,
+`exact_mappings`, `implements` on enums, `abstract`, `identifier`, and
+`structured_aliases` for multilingual labels.
 
-However, the OWL generator does not fully honour this richness. The most
-critical gap — `slot_uri` being ignored for OWL property IRIs — means the
-generated OWL **duplicates** DCAT-AP under a parallel namespace rather than
-**representing** it. Until this is fixed (either via generator flags or upstream
-patches), the generated OWL should be treated as an **inspection artefact**,
-not as a publishable ontology.
+However, the OWL generator does not fully honour even the features that *are*
+used. The most critical gap — `slot_uri` being ignored for OWL property IRIs —
+means the generated OWL **duplicates** DCAT-AP under a parallel namespace
+rather than **representing** it. Combined with the `DatatypeProperty`
+misclassification (an OWL-DL violation), the generated output should be treated
+as an **inspection artefact**, not as a publishable ontology.
 
-For comparison, the official DCAT-AP OWL ontology published by SEMIC uses the
-canonical `dcat:`, `dcterms:`, `foaf:` property URIs directly. Any serious
-OWL publication from this LinkML schema would need to either fix the generator
+For reference, the official DCAT-AP OWL ontology published by SEMIC uses the
+canonical `dcat:`, `dcterms:`, `foaf:` property URIs directly. Any serious OWL
+publication from this LinkML schema would need to either fix the generator
 behaviour or post-process the output to replace `dcatap_linkml:` property URIs
 with their `slot_uri` equivalents.
