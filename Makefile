@@ -23,6 +23,7 @@ SCHEMAS_DIR    = resources/schemas
 SCRIPTS_DIR    = resources/scripts
 TEMPLATES_DIR  = resources/templates
 MODELS_DIR     = src/erspec/models
+DCAT_AP_DIR    = resources/dcat_ap
 
 # Schema identifiers
 ERE_SCHEMA_NAME    = ere-service-schema
@@ -40,6 +41,8 @@ PYTHON_ERE_MODEL   = $(MODELS_DIR)/ere.py
 PYTHON_CORE_MODEL  = $(MODELS_DIR)/core.py
 JSON_SCHEMA_PATH   = $(SCHEMAS_DIR)/$(JSON_SCHEMA_NAME)-v$(SCHEMA_VERSION).json
 OWL_SCHEMA_PATH    = $(SCHEMAS_DIR)/$(ERE_SCHEMA_NAME)-v$(SCHEMA_VERSION).owl.ttl
+DCAT_AP_SCHEMA     = $(DCAT_AP_DIR)/dcat_ap_linkml.yaml
+DCAT_AP_OWL_PATH   = $(DCAT_AP_DIR)/dcat_ap_linkml.owl.ttl
 
 MODEL_DOCS_DIR     = docs/schema
 MODEL_DOCS_README  = $(MODEL_DOCS_DIR)/README.md
@@ -128,6 +131,16 @@ $(OWL_SCHEMA_PATH): $(ALL_SCHEMA_SOURCES)
 	@mkdir -p $(dir $(OWL_SCHEMA_PATH))
 	@poetry run linkml generate owl $(ERE_SCHEMA_PATH) 2>/dev/null > $(OWL_SCHEMA_PATH)
 	$(call log_done,OWL ontology generated -> $(OWL_SCHEMA_PATH))
+
+.PHONY: generate-owl-dcat-ap
+generate-owl-dcat-ap: $(DCAT_AP_OWL_PATH) ## Generate OWL from DCAT-AP LinkML schema (for inspection)
+	$(call log_done,DCAT-AP OWL ontology generated.)
+
+$(DCAT_AP_OWL_PATH): $(DCAT_AP_SCHEMA)
+	$(call log_progress,Generating DCAT-AP OWL ontology...)
+	@mkdir -p $(dir $(DCAT_AP_OWL_PATH))
+	@poetry run linkml generate owl $(DCAT_AP_SCHEMA) 2>/dev/null > $(DCAT_AP_OWL_PATH)
+	$(call log_done,DCAT-AP OWL ontology generated -> $(DCAT_AP_OWL_PATH))
 
 # ─── Documentation & PlantUML diagrams ──────────────────────────────────────────
 
