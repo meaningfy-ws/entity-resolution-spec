@@ -1,0 +1,796 @@
+@prefix ere: <https://data.europa.eu/ers/schema/ere/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.europa.eu/ers/schema/ere.owl.ttl> a owl:Ontology ;
+    rdfs:label "ereServiceSchema" ;
+    pav:version "0.1.0" ;
+    skos:definition "A LinkML schema for the ERS/ERE Service" .
+
+<https://data.europa.eu/ers/schema/ers/CanonicalEntityIdentifier> a owl:Class ;
+    rdfs:label "CanonicalEntityIdentifier" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/EntityMentionIdentifier> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/equivalent_to> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/identifier> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/identifier> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/identifier> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/equivalent_to> ] ;
+    skos:definition """A logical identity construct providing a stable identity anchor.
+Represents a cluster of equivalent entity mentions.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/Decision> a owl:Class ;
+    rdfs:label "Decision" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/updated_at> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/current_placement> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/created_at> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/id> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/about_entity_mention> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/current_placement> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/ClusterReference> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/current_placement> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/created_at> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/updated_at> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/created_at> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/id> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/EntityMentionIdentifier> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/about_entity_mention> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/candidates> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/updated_at> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/id> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/ClusterReference> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/candidates> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/about_entity_mention> ] ;
+    skos:definition """Canonical placement of an entity mention to a cluster.
+Represents the latest resolution decision (from ERE or curator override).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/LookupState> a owl:Class ;
+    rdfs:label "LookupState" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/last_snapshot> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/source_id> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/last_snapshot> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/source_id> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/last_snapshot> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/source_id> ] ;
+    skos:definition """Tracks the resolution state for entity mentions from a particular source.
+Records when the source was last resolved against the canonical clustering.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/UserAction> a owl:Class ;
+    rdfs:label "UserAction" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/EntityMentionIdentifier> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/about_entity_mention> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/id> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/selected_cluster> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/created_at> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/actor> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/action_type> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/candidates> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ere:UserActionType ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/action_type> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/metadata> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/ClusterReference> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/selected_cluster> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/ClusterReference> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/candidates> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/id> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/selected_cluster> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/about_entity_mention> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/id> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/created_at> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/actor> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/action_type> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/actor> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/metadata> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/about_entity_mention> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/metadata> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/created_at> ] ;
+    skos:definition """Immutable record of a curator action on an entity mention resolution.
+Stored in the User Action Log for traceability and training.
+
+NOT related to ERE messages; represents curator intent only.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/EntityMention> a owl:Class ;
+    rdfs:label "EntityMention" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/parsed_representation> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/content_type> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/parsed_representation> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/identifiedBy> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/EntityMentionIdentifier> ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/identifiedBy> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/content> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/context> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/context> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/context> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/content> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/content> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/content_type> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/content_type> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/identifiedBy> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/parsed_representation> ] ;
+    skos:definition """An entity mention is a representation of a real-world entity, as provided by the ERS.
+It contains the entity data, along with metadata like type and format.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+ere:EREErrorResponse a owl:Class ;
+    rdfs:label "EREErrorResponse" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:error_title ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:error_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:error_detail ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:error_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ere:error_detail ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ere:error_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:error_trace ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ere:error_title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:error_title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:error_detail ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ere:error_trace ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:error_trace ],
+        ere:EREResponse ;
+    skos:definition """Response sent by the ERE when some error/exception occurs while processing a request.
+For instance, this may happen if the request is malformed or some internal error happens.
+
+The attributes of this class are based on [RFC-9457](https://datatracker.ietf.org/doc/html/rfc9457).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:EntityMentionResolutionRequest a owl:Class ;
+    rdfs:label "EntityMentionResolutionRequest" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/EntityMention> ;
+            owl:onProperty ere:entity_mention ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ere:excluded_cluster_ids ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:excluded_cluster_ids ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ere:entity_mention ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:proposed_cluster_ids ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:entity_mention ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ere:proposed_cluster_ids ],
+        ere:ERERequest ;
+    skos:definition """An entity resolution request sent to the ERE, containing the entity to be resolved.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:EntityMentionResolutionResponse a owl:Class ;
+    rdfs:label "EntityMentionResolutionResponse" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/EntityMentionIdentifier> ;
+            owl:onProperty ere:entity_mention_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ere:entity_mention_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ere:candidates ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:entity_mention_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://data.europa.eu/ers/schema/ers/ClusterReference> ;
+            owl:onProperty ere:candidates ],
+        ere:EREResponse ;
+    skos:definition """An entity resolution response returned by the ERE.
+
+This is basically a list of candidate clusters to which the entity is deemed to be equivalent.
+
+Note that, for the moment, we don't support batch requests. In future, we might support requests
+with multiple subjects in the `EntityMention` content (eg, RDF with multiple subjects), in which case 
+we might need to return multiple `EntityMentionResolutionResponse` messages, each with additional 
+properties such as `entityIndex` and `totalEntities`.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+<https://data.europa.eu/ers/schema/ere/UserActionType#ACCEPT_ALTERNATIVE> a owl:Class ;
+    rdfs:label "ACCEPT_ALTERNATIVE" ;
+    rdfs:subClassOf ere:UserActionType ;
+    skos:definition "Curator selected an alternative candidate" .
+
+<https://data.europa.eu/ers/schema/ere/UserActionType#ACCEPT_TOP> a owl:Class ;
+    rdfs:label "ACCEPT_TOP" ;
+    rdfs:subClassOf ere:UserActionType ;
+    skos:definition "Curator accepted the top candidate from ERE" .
+
+<https://data.europa.eu/ers/schema/ere/UserActionType#REJECT_ALL> a owl:Class ;
+    rdfs:label "REJECT_ALL" ;
+    rdfs:subClassOf ere:UserActionType ;
+    skos:definition "Curator rejected all candidates" .
+
+ere:candidates a owl:ObjectProperty ;
+    rdfs:label "candidates" ;
+    skos:definition """The set of cluster reference/score pairs representing the candidate clusters
+that the entity mention in the original request could align to (be equivalent to).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:excluded_cluster_ids a owl:DatatypeProperty ;
+    rdfs:label "excluded_cluster_ids" ;
+    skos:definition """When this is present, the ERE may use this information to avoid clustering the entity in 
+the listed clusters.
+
+This can be used to notify the ERE that a curator has rejected a previous resolution 
+proposed by the ERE.
+
+As for `proposed_cluster_ids`, the ERE **has no obligation** to fulfil the exclusions, and 
+it remains the ultimate authority to provide the final resolution decision.
+
+Similarly, the exact reaction to this is implementation dependent. In the simplest case, the ERE
+might just create a singleton cluster with the current entity as member. In a more advanced 
+case, it might recompute the similarity with more advanced algorithms or use updated
+data.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:proposed_cluster_ids a owl:DatatypeProperty ;
+    rdfs:label "proposed_cluster_ids" ;
+    skos:definition """When this is present, the ERE may use this information to try to cluster the entity in one of 
+the listed clusters.
+
+In particular, when an initial request about an entity isn't answered within a timeout, 
+a subsequent new request can be sent about the same entity and with the canonical ID of it
+as a single proposed cluster ID. This suggests the ERE that it can create a new singleton cluster
+with the entity as its initial only member and its canonical ID as the cluster ID. The ERE
+can evolve such a cluster later, when further similar entities are sent in, or when it 
+has had more time to associate the initial entity to others. 
+
+Whatever, the case, the ERE **has no obligation** to fulfil the proposal, how it reacts to 
+this list is implementation dependent, and the ERE remains the ultimate authority to provide 
+the final resolution decision.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+<https://data.europa.eu/ers/schema/ers/equivalent_to> a owl:ObjectProperty ;
+    rdfs:label "equivalent_to" ;
+    skos:definition "Entity mentions that have been resolved to this canonical entity." ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+ere:ERERequest a owl:Class ;
+    rdfs:label "ERERequest" ;
+    rdfs:subClassOf ere:EREMessage ;
+    skos:definition """Root class to represent all the requests sent to the ERE.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:entity_mention a owl:ObjectProperty ;
+    rdfs:label "entity_mention" ;
+    skos:definition """The data about the entity to be resolved. Note that, at least for the moment, we don't support
+batch requests, so this property is single-valued.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:entity_mention_id a owl:ObjectProperty ;
+    rdfs:label "entity_mention_id" ;
+    skos:definition """The identifier of the entity mention that has been resolved.
+
+This isn't strictly needed, since the `ere_request_id` already links the response to 
+the request's entity mention. Yet, it's reported for convenience.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:ere_request_id a owl:DatatypeProperty ;
+    rdfs:label "ere_request_id" ;
+    skos:definition """A string representing the unique ID of an ERE request, or the ID of the request a response is about.
+This **is not** the same as `request_id` + `source_id`.
+
+Note on notification responses: as per ERE contract, an `EntityMentionResolutionResponse` message
+can originate from within the ERE, without any previous request counterpart, as a notification of
+resolution update. In this case, `ere_request_id` has the prefix `ereNotification:`.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:error_detail a owl:DatatypeProperty ;
+    rdfs:label "error_detail" ;
+    skos:definition """A human readable detailed message about the error that occurred.
+
+This corresponds to RFC-9457's `detail`.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:error_title a owl:DatatypeProperty ;
+    rdfs:label "error_title" ;
+    skos:definition """A human readable brief message about the error that occurred.
+
+This corresponds to RFC-9457's `title`.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:error_trace a owl:DatatypeProperty ;
+    rdfs:label "error_trace" ;
+    skos:definition """A string representing a (stack) trace of the error that occurred.
+
+This is optional and typically used for debugging purposes only, since
+exposing this kind of server-side information is a security risk.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:error_type a owl:DatatypeProperty ;
+    rdfs:label "error_type" ;
+    skos:definition """A string representing the error type, eg, the FQN of the raised exception.
+
+This corresponds to RFC-9457's `type`.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:timestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp" ;
+    skos:definition """The time when the message was created. Should be in ISO-8601 format.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+<https://data.europa.eu/ers/schema/ers/action_type> a owl:ObjectProperty ;
+    rdfs:label "action_type" ;
+    skos:definition "The type of action the curator performed" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/actor> a owl:DatatypeProperty ;
+    rdfs:label "actor" ;
+    skos:definition "User ID or identifier of the curator who performed the action" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/cluster_id> a owl:DatatypeProperty ;
+    rdfs:label "cluster_id" ;
+    skos:definition """The identifier of the cluster/canonical entity that is considered equivalent to the
+subject entity mention that an `EntityMentionResolutionResponse` refers to.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/confidence_score> a owl:DatatypeProperty ;
+    rdfs:label "confidence_score" ;
+    skos:definition """A 0-1 value of how confident the ERE is about the equivalence between the subject entity mention
+and the target canonical entity.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/content> a owl:DatatypeProperty ;
+    rdfs:label "content" ;
+    skos:definition """A code string representing the entity mention details (eg, RDF or XML description).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/content_type> a owl:DatatypeProperty ;
+    rdfs:label "content_type" ;
+    skos:definition """A string about the MIME format of `content` (e.g. text/turtle, application/ld+json)
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/context> a owl:DatatypeProperty ;
+    rdfs:label "context" ;
+    skos:definition """Optional context reference (e.g. notice or document ID).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/current_placement> a owl:ObjectProperty ;
+    rdfs:label "current_placement" ;
+    skos:definition """The accepted cluster for this mention (latest from ERE or curator).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/entity_type> a owl:DatatypeProperty ;
+    rdfs:label "entity_type" ;
+    skos:definition """A string representing the entity type (based on CET). This is typically a URI.
+
+Note that this is at this level, and not at `EntityMention`, since, as said above, 
+it's needed to identify the entity, even when its content is not present. For the same
+reason, it's used both for `EREResolutionRequest` and `EREResolutionResponse` messages.,
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/identifiedBy> a owl:ObjectProperty ;
+    rdfs:label "identifiedBy" ;
+    skos:definition """The identification triad of the entity mention.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/identifier> a owl:DatatypeProperty ;
+    rdfs:label "identifier" ;
+    skos:definition "Unique identifier for the canonical entity." ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/last_snapshot> a owl:DatatypeProperty ;
+    rdfs:label "last_snapshot" ;
+    skos:definition """Timestamp of the last resolution operation for this source.
+Used to determine if a refreshBulk or other update is needed.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/metadata> a owl:DatatypeProperty ;
+    rdfs:label "metadata" ;
+    skos:definition """JSON metadata providing context (e.g., curator notes, reasoning).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/parsed_representation> a owl:DatatypeProperty ;
+    rdfs:label "parsed_representation" ;
+    skos:definition """JSON representation of the parsed entity data.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/request_id> a owl:DatatypeProperty ;
+    rdfs:label "request_id" ;
+    skos:definition """A string representing the unique ID of the request made to the ERS system. In general, this is unique
+only within the scope of the source and the entity type, ie, within `sourceId` and `entityType`. 
+
+Moreover, this is **not** the same as `ereRequestId`, which instead, is internal to the ERE and is 
+used to match responses to requests.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/selected_cluster> a owl:ObjectProperty ;
+    rdfs:label "selected_cluster" ;
+    skos:definition """The cluster selected by the curator (if action was ACCEPT_TOP
+or ACCEPT_ALTERNATIVE). NULL if action was REJECT_ALL.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/similarity_score> a owl:DatatypeProperty ;
+    rdfs:label "similarity_score" ;
+    skos:definition """A 0-1 score representing the pairwise comparison between a mention and a cluster (likely
+based on a representative representation).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/updated_at> a owl:DatatypeProperty ;
+    rdfs:label "updated_at" ;
+    skos:definition "When the decision was last updated (ERE refresh or curator action)" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+ere:EREMessage a owl:Class ;
+    rdfs:label "EREMessage" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:ere_request_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:ere_request_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty ere:timestamp ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ere:timestamp ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ere:ere_request_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ere:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ere:timestamp ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ere:type ] ;
+    skos:definition """Root abstraction to represent attributes common to both requests and results.
+This is modelled as a mixin in LinkML (so that it can't be instantiated directly).
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:EREResponse a owl:Class ;
+    rdfs:label "EREResponse" ;
+    rdfs:subClassOf ere:EREMessage ;
+    skos:definition """Root class to represent all the responses sent by the ERE.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+ere:UserActionType a owl:Class ;
+    rdfs:label "UserActionType" ;
+    owl:unionOf ( <https://data.europa.eu/ers/schema/ere/UserActionType#ACCEPT_TOP> <https://data.europa.eu/ers/schema/ere/UserActionType#ACCEPT_ALTERNATIVE> <https://data.europa.eu/ers/schema/ere/UserActionType#REJECT_ALL> ) ;
+    skos:definition "Types of curator actions on entity mention resolutions" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> ;
+    linkml:permissible_values <https://data.europa.eu/ers/schema/ere/UserActionType#ACCEPT_ALTERNATIVE>,
+        <https://data.europa.eu/ers/schema/ere/UserActionType#ACCEPT_TOP>,
+        <https://data.europa.eu/ers/schema/ere/UserActionType#REJECT_ALL> .
+
+<https://data.europa.eu/ers/schema/ers/candidates> a owl:ObjectProperty .
+
+<https://data.europa.eu/ers/schema/ers/ClusterReference> a owl:Class ;
+    rdfs:label "ClusterReference" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/cluster_id> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:float [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:float ;
+                                owl:withRestrictions ( [ xsd:minInclusive 0e+00 ] ) ] [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:float ;
+                                owl:withRestrictions ( [ xsd:maxInclusive 1e+00 ] ) ] ) ] ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/similarity_score> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/confidence_score> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/cluster_id> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/similarity_score> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/similarity_score> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:float [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:float ;
+                                owl:withRestrictions ( [ xsd:minInclusive 0e+00 ] ) ] [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:float ;
+                                owl:withRestrictions ( [ xsd:maxInclusive 1e+00 ] ) ] ) ] ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/confidence_score> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/confidence_score> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/cluster_id> ] ;
+    skos:definition """A reference to a cluster to which an entity is deemed to belong, with an associated confidence and similarity scores.
+
+A cluster is a set of entity mentions that have been determined to refer to the same real-world entity.
+Each cluster has a unique clusterId.
+
+A cluster reference is used to report the association between an entity mention and a cluster 
+of equivalence.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/EntityMentionIdentifier> a owl:Class ;
+    rdfs:label "EntityMentionIdentifier" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/source_id> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/entity_type> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/request_id> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/entity_type> ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/request_id> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/request_id> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/entity_type> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/source_id> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty <https://data.europa.eu/ers/schema/ers/source_id> ] ;
+    skos:definition """A container that groups the attributes needed to identify an entity mention in a resolution request
+or response.
+
+As per ERS architectural decision, in the whole ERS and ERE systems, there is always a deterministic
+method to build a canonical identifier from the combination of `sourceId`, `requestId` and `entityType`
+(eg, string concatenation plus some prefix). Similarly, a cluster ID (mentioned in various places in 
+in this hereby ERE service schema) can be built from an entity that is initially the only cluster member.
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ers> .
+
+<https://data.europa.eu/ers/schema/ers/about_entity_mention> a owl:ObjectProperty .
+
+<https://data.europa.eu/ers/schema/ers/created_at> a owl:DatatypeProperty .
+
+<https://data.europa.eu/ers/schema/ers/id> a owl:DatatypeProperty .
+
+<https://data.europa.eu/ers/schema/ers/source_id> a owl:DatatypeProperty .
+
+ere:type a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    skos:definition """The type of the request or result.
+
+As per LinkML specification, `designates_type` is used here in order to allow for this
+slot to tell the concrete subclass that an instance (such as a JSON object) belongs to.
+
+In other words, a particular request will have `type` set with values like 
+`EntityMentionResolutionRequest` or `EntityResolutionResult`
+""" ;
+    skos:inScheme <https://data.europa.eu/ers/schema/ere> .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf ere:EREMessage ;
+    owl:onProperty ere:type ;
+    owl:someValuesFrom ere:EREMessage .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf ere:EREErrorResponse ;
+    owl:onProperty ere:type ;
+    owl:someValuesFrom ere:EREErrorResponse .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf ere:EREResponse ;
+    owl:onProperty ere:type ;
+    owl:someValuesFrom ere:EREResponse .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf ere:ERERequest ;
+    owl:onProperty ere:type ;
+    owl:someValuesFrom ere:ERERequest .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf ere:EntityMentionResolutionResponse ;
+    owl:onProperty ere:type ;
+    owl:someValuesFrom ere:EntityMentionResolutionResponse .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf ere:EntityMentionResolutionRequest ;
+    owl:onProperty ere:type ;
+    owl:someValuesFrom ere:EntityMentionResolutionRequest .
+
+

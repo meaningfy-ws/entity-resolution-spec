@@ -39,6 +39,7 @@ ALL_SCHEMA_SOURCES = $(ERE_SCHEMA_PATH) $(CORE_SCHEMA_PATH)
 PYTHON_ERE_MODEL   = $(MODELS_DIR)/ere.py
 PYTHON_CORE_MODEL  = $(MODELS_DIR)/core.py
 JSON_SCHEMA_PATH   = $(SCHEMAS_DIR)/$(JSON_SCHEMA_NAME)-v$(SCHEMA_VERSION).json
+OWL_SCHEMA_PATH    = $(SCHEMAS_DIR)/$(ERE_SCHEMA_NAME)-v$(SCHEMA_VERSION).owl.ttl
 
 MODEL_DOCS_DIR     = docs/schema
 MODEL_DOCS_README  = $(MODEL_DOCS_DIR)/README.md
@@ -116,6 +117,18 @@ $(JSON_SCHEMA_PATH): $(ALL_SCHEMA_SOURCES)
 	@poetry run linkml generate json-schema --indent 2 $(ERE_SCHEMA_PATH) > $(JSON_SCHEMA_PATH)
 	$(call log_done,JSON Schema generated -> $(JSON_SCHEMA_PATH))
 
+# ─── OWL (optional, for inspection) ─────────────────────────────────────────────
+
+.PHONY: generate-owl
+generate-owl: $(OWL_SCHEMA_PATH) ## Generate OWL ontology from LinkML schemas (for inspection)
+	$(call log_done,OWL ontology generated.)
+
+$(OWL_SCHEMA_PATH): $(ALL_SCHEMA_SOURCES)
+	$(call log_progress,Generating OWL ontology...)
+	@mkdir -p $(dir $(OWL_SCHEMA_PATH))
+	@poetry run linkml generate owl $(ERE_SCHEMA_PATH) 2>/dev/null > $(OWL_SCHEMA_PATH)
+	$(call log_done,OWL ontology generated -> $(OWL_SCHEMA_PATH))
+
 # ─── Documentation & PlantUML diagrams ──────────────────────────────────────────
 
 $(MODEL_DOCS_README): $(ALL_SCHEMA_SOURCES)
@@ -136,7 +149,7 @@ $(MODEL_DOCS_README): $(ALL_SCHEMA_SOURCES)
 .PHONY: clean-models
 clean-models: ## Remove all generated models
 	$(call log_progress,Cleaning generated models...)
-	@rm -f $(PYTHON_ERE_MODEL) $(PYTHON_CORE_MODEL) $(JSON_SCHEMA_PATH)
+	@rm -f $(PYTHON_ERE_MODEL) $(PYTHON_CORE_MODEL) $(JSON_SCHEMA_PATH) $(OWL_SCHEMA_PATH)
 	$(call log_done,Generated models cleaned.)
 
 .PHONY: clean-doc
