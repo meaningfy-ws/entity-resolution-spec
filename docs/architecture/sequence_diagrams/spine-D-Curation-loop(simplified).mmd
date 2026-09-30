@@ -34,7 +34,7 @@ alt Request rejected
     LinkCurationSvc -->> Curator: 4xx
 else Request accepted
     ERS ->> UserActionLog: Append user action record
-    ERS ->> MessagingMiddleware: Publish re-resolve request (async)<br/>(sourceId, requestId, entityType,<br/>optional rejectionConstraints,<br/>optional preferredPlacement)
+    ERS ->> MessagingMiddleware: Publish re-resolve request (async)<br/>(sourceId, requestId, entityType,<br/>optional excluded_cluster_ids,<br/>optional proposed_cluster_ids)
     LinkCurationSvc -->> Curator: 202 Accepted<br/>(action recorded)
 
     MessagingMiddleware ->> ERE: Deliver re-resolve request (async)

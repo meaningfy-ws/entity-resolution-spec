@@ -31,8 +31,6 @@ alt ERE returns within ERS to ERE execution window
     ERS -->> Originator: Canonical clusterId
 else ERE does not return within ERS to ERE execution window
     ERS ->> ERS: Create provisional singleton and persist decision
-    ERS ->> MessagingMiddleware: Publish placement instruction<br/>(assign mention to singleton clusterId)
-    MessagingMiddleware ->> ERE: Deliver placement instruction (async)
     ERS -->> Originator: Provisional clusterId
 else Validation failure or internal error
     ERS -->> Originator: Error

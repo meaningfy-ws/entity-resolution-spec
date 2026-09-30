@@ -51,7 +51,7 @@ Name: ereServiceSchema
 | [error_detail](error_detail.md) | A human readable detailed message about the error that occurred |
 | [error_title](error_title.md) | A human readable brief message about the error that occurred |
 | [error_trace](error_trace.md) | A string representing a (stack) trace of the error that occurred |
-| [error_type](error_type.md) | A string representing the error type, eg, the FQN of the raised exception |
+| [error_type](error_type.md) | A string representing the error type, for example the name or the fully quali... |
 | [excluded_cluster_ids](excluded_cluster_ids.md) | When this is present, the ERE may use this information to avoid clustering th... |
 | [id](id.md) | Unique decision identifier |
 | [identifiedBy](identifiedBy.md) | The identification triad of the entity mention |

@@ -18,7 +18,7 @@ participant Broker as "Messaging Middleware"
 participant ERE as "Entity Resolution Engine (ERE)"
 
 %% --- Contract: Request publication ---
-ERS ->> Broker: Publish Resolution Request (async)<br/>(sourceId, requestId, entityType,<br/>EntityMention, rejectionConstraints?)
+ERS ->> Broker: Publish Resolution Request (async)<br/>(sourceId, requestId, entityType,<br/>EntityMention, excluded_cluster_ids?, proposed_cluster_ids?)
 Broker ->> ERE: Deliver Resolution Request (async)
 
 %% --- Contract: Boundary validation outcome ---

@@ -29,7 +29,7 @@ Scenario: When ERE does not respond in time, no follow-up request is published a
   When ERS does not receive a response from ERE within the execution window (default: 30s),
   it issues a provisional draft identifier internally and returns it to the originator.
   No additional request is published to the ERE request channel at this point — ERE will not be
-  notified of the timeout. A `resolveConsideringRecommendation` request only arrives later
+  notified of the timeout. A resolution request carrying `proposed_cluster_ids` only arrives later
   if a curator subsequently submits a placement recommendation for the provisional assignment
   (see Scenario 3).
 
@@ -42,7 +42,7 @@ When
 Then
   No follow-up request is published to the ERE request channel
 And
-  ERE may later receive a `resolveConsideringRecommendation` request if a curator acts
+  ERE may later receive a resolution request carrying `proposed_cluster_ids` if a curator acts
   on the provisional assignment — but not before
 
 

@@ -228,17 +228,16 @@ attributes:
   proposed_cluster_ids:
     name: proposed_cluster_ids
     description: "When this is present, the ERE may use this information to try to\
-      \ cluster the entity in one of \nthe listed clusters.\n\nIn particular, when\
-      \ an initial request about an entity isn't answered within a timeout, \na subsequent\
-      \ new request can be sent about the same entity and with the canonical ID of\
-      \ it\nas a single proposed cluster ID. This suggests the ERE that it can create\
-      \ a new singleton cluster\nwith the entity as its initial only member and its\
-      \ canonical ID as the cluster ID. The ERE\ncan evolve such a cluster later,\
-      \ when further similar entities are sent in, or when it \nhas had more time\
-      \ to associate the initial entity to others. \n\nWhatever, the case, the ERE\
-      \ **has no obligation** to fulfil the proposal, how it reacts to \nthis list\
-      \ is implementation dependent, and the ERE remains the ultimate authority to\
-      \ provide \nthe final resolution decision.\n"
+      \ cluster the entity in one of \nthe listed clusters.\n\nIn particular, this\
+      \ is used to forward a curator's placement recommendation for an entity\nthat\
+      \ was already resolved: the cluster it is currently placed in, or one of the\
+      \ candidate\nclusters of the latest resolution. When an initial request is not\
+      \ answered within the ERS\ntime budget, no follow-up request is sent: the provisional\
+      \ identifier that ERS issues is\nderived with the same rule the ERE uses for\
+      \ a new singleton cluster.\n\nWhatever, the case, the ERE **has no obligation**\
+      \ to fulfil the proposal, how it reacts to \nthis list is implementation dependent,\
+      \ and the ERE remains the ultimate authority to provide \nthe final resolution\
+      \ decision.\n"
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
     domain_of:
@@ -324,17 +323,16 @@ attributes:
   proposed_cluster_ids:
     name: proposed_cluster_ids
     description: "When this is present, the ERE may use this information to try to\
-      \ cluster the entity in one of \nthe listed clusters.\n\nIn particular, when\
-      \ an initial request about an entity isn't answered within a timeout, \na subsequent\
-      \ new request can be sent about the same entity and with the canonical ID of\
-      \ it\nas a single proposed cluster ID. This suggests the ERE that it can create\
-      \ a new singleton cluster\nwith the entity as its initial only member and its\
-      \ canonical ID as the cluster ID. The ERE\ncan evolve such a cluster later,\
-      \ when further similar entities are sent in, or when it \nhas had more time\
-      \ to associate the initial entity to others. \n\nWhatever, the case, the ERE\
-      \ **has no obligation** to fulfil the proposal, how it reacts to \nthis list\
-      \ is implementation dependent, and the ERE remains the ultimate authority to\
-      \ provide \nthe final resolution decision.\n"
+      \ cluster the entity in one of \nthe listed clusters.\n\nIn particular, this\
+      \ is used to forward a curator's placement recommendation for an entity\nthat\
+      \ was already resolved: the cluster it is currently placed in, or one of the\
+      \ candidate\nclusters of the latest resolution. When an initial request is not\
+      \ answered within the ERS\ntime budget, no follow-up request is sent: the provisional\
+      \ identifier that ERS issues is\nderived with the same rule the ERE uses for\
+      \ a new singleton cluster.\n\nWhatever, the case, the ERE **has no obligation**\
+      \ to fulfil the proposal, how it reacts to \nthis list is implementation dependent,\
+      \ and the ERE remains the ultimate authority to provide \nthe final resolution\
+      \ decision.\n"
     from_schema: https://data.europa.eu/ers/schema/ere
     rank: 1000
     alias: proposed_cluster_ids

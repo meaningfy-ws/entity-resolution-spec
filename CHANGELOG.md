@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [unreleased]
 
 
+## [1.1.0-rc.8] - 2026-09-30
+
+### Changed
+* `proposed_cluster_ids` description: used for curator placement recommendations; no follow-up request after an ERS timeout
+* `error_type` description: example broadened to the exception name or its fully qualified name
+* Gherkin features and sequence diagrams aligned with the ERS–ERE message vocabulary and delivery semantics
+
+
 ## [1.1.0-rc.6] - 2026-07-16
 
 ### Removed

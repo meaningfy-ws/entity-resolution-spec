@@ -7,7 +7,7 @@ Feature: ERE/ERS outcome integration — ERE-observable guarantees
 
 Scenario: Submitting the same outcome a second time produces no error
 
-  ERE is permitted to re-send the same clustering outcome (at-least-once delivery). ERS must
+  ERE is permitted to re-send the same clustering outcome (duplicates can occur; the transport gives no delivery guarantee). ERS must
   accept duplicate outcomes silently.
 
 Given

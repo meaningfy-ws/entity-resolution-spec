@@ -3,7 +3,7 @@
 # Slot: error_type 
 
 
-_A string representing the error type, eg, the FQN of the raised exception._
+_A string representing the error type, for example the name or the fully qualified name of the raised exception._
 
 __
 
@@ -74,7 +74,8 @@ Alias: error_type
 <details>
 ```yaml
 name: error_type
-description: 'A string representing the error type, eg, the FQN of the raised exception.
+description: 'A string representing the error type, for example the name or the fully
+  qualified name of the raised exception.
 
 
   This corresponds to RFC-9457''s `type`.

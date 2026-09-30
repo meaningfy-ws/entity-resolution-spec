@@ -40,12 +40,8 @@ else Request accepted
         ERIntake -->> Originator: 200 OK<br/>Canonical clusterId
     else ERE result not received within ERS to ERE execution window
         ERS ->> ERS: Create provisional singleton and persist decision
-        ERS ->> MessagingMiddleware: Publish placement instruction (async)<br/>(assign mention to singleton clusterId)
         ERS -->> ERIntake: Provisional clusterId
-        ERIntake -->> Originator: 200 OK<br/>Provisional clusterId
-    else Client timeout budget exceeded
-        ERS -->> ERIntake: Error
-        ERIntake -->> Originator: 5xx or timeout
+        ERIntake -->> Originator: 202 Accepted<br/>Provisional clusterId
     end
 end
 

@@ -62,7 +62,7 @@ URI: [ere:EREErrorResponse](https://data.europa.eu/ers/schema/ere/EREErrorRespon
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [error_type](error_type.md) | 1 <br/> [String](String.md) | A string representing the error type, eg, the FQN of the raised exception | direct |
+| [error_type](error_type.md) | 1 <br/> [String](String.md) | A string representing the error type, for example the name or the fully quali... | direct |
 | [error_title](error_title.md) | 0..1 <br/> [String](String.md) | A human readable brief message about the error that occurred | direct |
 | [error_detail](error_detail.md) | 0..1 <br/> [String](String.md) | A human readable detailed message about the error that occurred | direct |
 | [error_trace](error_trace.md) | 0..1 <br/> [String](String.md) | A string representing a (stack) trace of the error that occurred | direct |
@@ -154,8 +154,8 @@ is_a: EREResponse
 attributes:
   error_type:
     name: error_type
-    description: 'A string representing the error type, eg, the FQN of the raised
-      exception.
+    description: 'A string representing the error type, for example the name or the
+      fully qualified name of the raised exception.
 
 
       This corresponds to RFC-9457''s `type`.
@@ -236,8 +236,8 @@ is_a: EREResponse
 attributes:
   error_type:
     name: error_type
-    description: 'A string representing the error type, eg, the FQN of the raised
-      exception.
+    description: 'A string representing the error type, for example the name or the
+      fully qualified name of the raised exception.
 
 
       This corresponds to RFC-9457''s `type`.

@@ -117,12 +117,11 @@ batch requests, so this property is single-valued.
     proposed_cluster_ids: Optional[list[str]] = Field(default=[], description="""When this is present, the ERE may use this information to try to cluster the entity in one of 
 the listed clusters.
 
-In particular, when an initial request about an entity isn't answered within a timeout, 
-a subsequent new request can be sent about the same entity and with the canonical ID of it
-as a single proposed cluster ID. This suggests the ERE that it can create a new singleton cluster
-with the entity as its initial only member and its canonical ID as the cluster ID. The ERE
-can evolve such a cluster later, when further similar entities are sent in, or when it 
-has had more time to associate the initial entity to others. 
+In particular, this is used to forward a curator's placement recommendation for an entity
+that was already resolved: the cluster it is currently placed in, or one of the candidate
+clusters of the latest resolution. When an initial request is not answered within the ERS
+time budget, no follow-up request is sent: the provisional identifier that ERS issues is
+derived with the same rule the ERE uses for a new singleton cluster.
 
 Whatever, the case, the ERE **has no obligation** to fulfil the proposal, how it reacts to 
 this list is implementation dependent, and the ERE remains the ultimate authority to provide 
@@ -202,7 +201,7 @@ class EREErrorResponse(EREResponse):
 For instance, this may happen if the request is malformed or some internal error happens.
 
 The attributes of this class are based on [RFC-9457](https://datatracker.ietf.org/doc/html/rfc9457)."""
-    error_type: str = Field(default=..., description="""A string representing the error type, eg, the FQN of the raised exception.
+    error_type: str = Field(default=..., description="""A string representing the error type, for example the name or the fully qualified name of the raised exception.
 
 This corresponds to RFC-9457's `type`.
 """, json_schema_extra = { "linkml_meta": {'domain_of': ['EREErrorResponse']} })
